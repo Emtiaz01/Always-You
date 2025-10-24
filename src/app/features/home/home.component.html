@@ -1,0 +1,187 @@
+<div class="home-page">
+  <!-- Cursor Heart Trail -->
+  <div class="cursor-hearts" #cursorTrail></div>
+
+  <!-- 🩵 1. Hero Section (The Entrance Moment) -->
+  <section class="hero-section">
+    <!-- Background Video/Slideshow -->
+    <div class="hero-background">
+      <div class="hero-overlay"></div>
+      <div class="floating-hearts-animation">
+        <span class="floating-heart" *ngFor="let h of [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]">💕</span>
+      </div>
+    </div>
+
+    <!-- Hero Content -->
+    <div class="hero-content fade-in-up">
+      <h1 class="hero-greeting">Hey, My Love ❤️</h1>
+      <div class="hero-text">
+        <p class="hero-line">This isn't just a website.</p>
+        <p class="hero-line">It's a <span class="highlight">story</span> — <span class="highlight">our story</span>.</p>
+        <p class="hero-line spacer"></p>
+        <p class="hero-line">Every page here is a piece of my heart,</p>
+        <p class="hero-line">built just for the person who owns it.</p>
+      </div>
+      
+      <!-- Music Toggle -->
+      <button class="music-toggle-btn" (click)="toggleBackgroundMusic()">
+        <span *ngIf="!isMusicPlaying()">🎵 Play Our Song</span>
+        <span *ngIf="isMusicPlaying()">⏸️ Pause Music</span>
+      </button>
+
+      <button class="begin-story-btn" (click)="scrollToNextSection()">
+        Begin Our Story 💌
+      </button>
+    </div>
+
+    <!-- Scroll Indicator -->
+    <div class="scroll-indicator">
+      <span class="scroll-text">Scroll to explore ↓</span>
+    </div>
+  </section>
+
+  <!-- 🌤️ 2. About Us / Mini Intro -->
+  <section class="about-us-section" #aboutSection>
+    <div class="section-container">
+      <div class="about-content split-layout">
+        <!-- Photo Collage Side -->
+        <div class="photo-collage fade-in-left">
+          <div class="collage-grid">
+            <div class="collage-item" *ngFor="let photo of previewPhotos(); let i = index" 
+                 [style.animation-delay.ms]="i * 100">
+              <img [src]="photo.url" [alt]="photo.caption" />
+            </div>
+          </div>
+          <div class="collage-hearts">
+            <span class="heart-icon">💗</span>
+            <span class="heart-icon">✨</span>
+            <span class="heart-icon">💫</span>
+          </div>
+        </div>
+
+        <!-- Text Side -->
+        <div class="about-text fade-in-right">
+          <h2 class="section-title">How It All Began 🌻</h2>
+          <div class="about-description">
+            <p>From random texts to late-night calls…</p>
+            <p>From "just talking" to never wanting to stop talking —</p>
+            <p class="emphasis">We became us. �</p>
+            <p class="spacer-text"></p>
+            <p>This site is our little corner of the internet —</p>
+            <p>A place where our memories live,</p>
+            <p>and where I get to remind you how much you mean to me.</p>
+          </div>
+          <a routerLink="/timeline" class="view-story-btn">View Our Story ❤️</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 🌷 3. Photo Glimpse Section -->
+  <section class="photo-glimpse-section">
+    <div class="section-container">
+      <h2 class="section-title centered fade-in">
+        "Every memory is a love letter I never stopped writing…" 💫
+      </h2>
+      <p class="section-subtitle fade-in">Peek at a few of them below 👇</p>
+
+      <!-- Photo Slider -->
+      <div class="photo-slider-container">
+        <div class="photo-slider" #photoSlider>
+          <div class="photo-slide" *ngFor="let photo of galleryPhotos()" 
+               (mouseenter)="onPhotoHover(photo)" 
+               (mouseleave)="onPhotoLeave()">
+            <div class="photo-card">
+              <img [src]="photo.url" [alt]="photo.caption" />
+              <div class="photo-sparkle">✨</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="centered">
+        <a routerLink="/gallery" class="gallery-btn">View Full Gallery 📸</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 💌 4. Love Letter Preview Section -->
+  <section class="letter-preview-section">
+    <div class="letter-background"></div>
+    <div class="section-container">
+      <div class="letter-content fade-in-up">
+        <div class="envelope-animation">
+          <span class="envelope-icon">💌</span>
+        </div>
+        
+        <h2 class="section-title">A Letter From My Heart to Yours 💌</h2>
+        
+        <div class="letter-text">
+          <p class="letter-quote">"Sometimes I still can't believe I get to call you mine.</p>
+          <p class="letter-quote">You make ordinary moments feel magical,</p>
+          <p class="letter-quote">and somehow, you've made my heart your favorite place to stay…"</p>
+          <p class="letter-signature">— From the one who loves you endlessly.</p>
+        </div>
+
+        <a routerLink="/letters" class="read-letter-btn">Read the Full Letter 💖</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 🌠 5. Surprise Tease Section -->
+  <section class="surprise-tease-section">
+    <div class="stars-background">
+      <span class="star" *ngFor="let s of [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]"></span>
+    </div>
+    <div class="section-container">
+      <div class="surprise-content fade-in">
+        <h2 class="section-title glow-text">A Little Secret Awaits… 👀</h2>
+        <p class="surprise-text">There's something special hidden here.</p>
+        <p class="surprise-text">Something only you are meant to find.</p>
+        <p class="surprise-question">Ready to find out?</p>
+        
+        <a routerLink="/surprises" class="surprise-btn">Click Here for a Surprise 💫</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 🌹 6. Quote & Affirmation Section -->
+  <section class="quote-section">
+    <div class="quote-background"></div>
+    <div class="section-container">
+      <div class="quote-content fade-in">
+        <blockquote class="main-quote">
+          "You are my favorite feeling, my calm place, and my forever." 💖
+        </blockquote>
+        <div class="affirmation">
+          <p>Thank you for being you.</p>
+          <p>Thank you for being mine.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 🌙 7. Footer Section -->
+  <footer class="home-footer">
+    <div class="footer-links">
+      <a routerLink="/letters" class="footer-link">💌 Letter</a>
+      <a routerLink="/gallery" class="footer-link">📸 Gallery</a>
+      <a routerLink="/surprises" class="footer-link">🎁 Surprise</a>
+      <a routerLink="/timeline" class="footer-link">🌷 Our Story</a>
+    </div>
+    <p class="footer-signature">Made with all my love, just for you 💞 — by [Your Name]</p>
+  </footer>
+
+  <!-- Background Music -->
+  <audio #bgMusic loop>
+    <source src="assets/audio/romantic-song.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- Chat Bubble Easter Egg -->
+  <div class="chat-bubble" *ngIf="showChatBubble()">
+    <div class="chat-content">
+      <p>You found my heart's website 😳💞</p>
+      <button class="chat-close" (click)="closeChatBubble()">×</button>
+    </div>
+  </div>
+</div>

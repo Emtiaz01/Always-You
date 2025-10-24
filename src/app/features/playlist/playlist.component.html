@@ -1,0 +1,7 @@
+<div class="playlist-container">
+  <h2>Songs That Tell Our Story 🎶</h2>
+  <div *ngIf="playlistUrl()">
+    <iframe [src]="playlistUrl()" width="100%" height="380" frameBorder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+  </div>
+  <p *ngIf="!playlistUrl()">No playlist has been set up yet.</p>
+</div>

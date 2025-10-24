@@ -1,0 +1,678 @@
+/* Variables */
+:host {
+  --primary-pink: #ffb3d9;
+  --secondary-pink: #ffc9e3;
+  --cream: #fff5f7;
+  --blush: #d16081;
+  --text-dark: #5a5a5a;
+}
+
+/* Gallery Page */
+.gallery-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, var(--cream) 0%, #ffffff 50%, var(--secondary-pink) 100%);
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Floating Hearts Background */
+.floating-hearts-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.heart-particle {
+  position: absolute;
+  font-size: 1.5rem;
+  opacity: 0.3;
+  animation: floatDown 15s linear infinite;
+}
+
+.heart-particle:nth-child(1) { left: 10%; animation-delay: 0s; }
+.heart-particle:nth-child(2) { left: 20%; animation-delay: 2s; }
+.heart-particle:nth-child(3) { left: 30%; animation-delay: 4s; }
+.heart-particle:nth-child(4) { left: 40%; animation-delay: 1s; }
+.heart-particle:nth-child(5) { left: 50%; animation-delay: 3s; }
+.heart-particle:nth-child(6) { left: 60%; animation-delay: 5s; }
+.heart-particle:nth-child(7) { left: 70%; animation-delay: 2.5s; }
+.heart-particle:nth-child(8) { left: 80%; animation-delay: 4.5s; }
+.heart-particle:nth-child(9) { left: 90%; animation-delay: 1.5s; }
+.heart-particle:nth-child(10) { left: 95%; animation-delay: 3.5s; }
+
+@keyframes floatDown {
+  0% {
+    top: -10%;
+    transform: translateX(0) rotate(0deg);
+  }
+  50% {
+    transform: translateX(20px) rotate(180deg);
+  }
+  100% {
+    top: 110%;
+    transform: translateX(0) rotate(360deg);
+  }
+}
+
+/* Hero Header */
+.hero-header {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 4rem 2rem;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-content {
+  max-width: 800px;
+  margin-bottom: 3rem;
+}
+
+.hero-title {
+  font-family: 'Dancing Script', cursive;
+  font-size: 4rem;
+  color: var(--blush);
+  margin-bottom: 2rem;
+  line-height: 1.3;
+}
+
+.hero-subtitle {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.3rem;
+  color: var(--text-dark);
+  line-height: 1.8;
+  font-style: italic;
+}
+
+.music-toggle {
+  margin-top: 2rem;
+  padding: 1rem 2.5rem;
+  background: linear-gradient(135deg, var(--primary-pink), var(--blush));
+  border: none;
+  border-radius: 50px;
+  color: white;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.1rem;
+  cursor: pointer;
+  box-shadow: 0 5px 20px rgba(209, 96, 129, 0.3);
+  transition: all 0.3s ease;
+}
+
+.music-toggle:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 30px rgba(209, 96, 129, 0.5);
+}
+
+.hero-image-container {
+  max-width: 600px;
+  width: 100%;
+  border-radius: 30px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+  animation: zoomInSlow 8s ease-in-out infinite alternate;
+}
+
+.hero-couple-image {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+@keyframes zoomInSlow {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.05);
+  }
+}
+
+/* Fade In Animations */
+.fade-in {
+  animation: fadeIn 1.5s ease-in;
+}
+
+.fade-in-slow {
+  animation: fadeIn 2.5s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Section Styling */
+.her-gallery-section,
+.couple-gallery-section,
+.video-memories-section,
+.closing-section {
+  padding: 5rem 2rem;
+  position: relative;
+  z-index: 1;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.section-title {
+  font-family: 'Dancing Script', cursive;
+  font-size: 3.5rem;
+  color: var(--blush);
+  margin-bottom: 1rem;
+}
+
+.section-subtitle {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.2rem;
+  color: var(--text-dark);
+  font-style: italic;
+}
+
+/* Masonry Grid (Her Photos) */
+.masonry-grid {
+  column-count: 3;
+  column-gap: 1.5rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.masonry-item {
+  position: relative;
+  break-inside: avoid;
+  margin-bottom: 1.5rem;
+  border-radius: 20px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  background: white;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+.masonry-item:hover {
+  transform: translateY(-10px) scale(1.03);
+  box-shadow: 0 15px 40px rgba(209, 96, 129, 0.4);
+}
+
+.masonry-item img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: all 0.5s ease;
+  filter: brightness(1) saturate(1.1);
+}
+
+.masonry-item:hover img {
+  filter: brightness(1.1) saturate(1.3);
+}
+
+.photo-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+  padding: 2rem 1rem 1rem;
+  transform: translateY(100%);
+  transition: transform 0.4s ease;
+}
+
+.masonry-item:hover .photo-overlay {
+  transform: translateY(0);
+}
+
+.photo-caption {
+  color: white;
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.2rem;
+  margin: 0;
+  text-align: center;
+}
+
+/* Hover Hearts */
+.hover-hearts {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.masonry-item:hover .hover-hearts {
+  opacity: 1;
+}
+
+.floating-heart {
+  position: absolute;
+  font-size: 2rem;
+  animation: floatUpHeart 2s ease-out forwards;
+}
+
+.floating-heart:nth-child(1) {
+  left: -30px;
+  animation-delay: 0s;
+}
+
+.floating-heart:nth-child(2) {
+  left: 0;
+  animation-delay: 0.2s;
+}
+
+.floating-heart:nth-child(3) {
+  left: 30px;
+  animation-delay: 0.4s;
+}
+
+@keyframes floatUpHeart {
+  0% {
+    transform: translateY(0) scale(0);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100px) scale(1.5);
+    opacity: 0;
+  }
+}
+
+/* Special Photo Glow */
+.special-photo {
+  animation: specialGlow 2s ease-in-out infinite;
+}
+
+@keyframes specialGlow {
+  0%, 100% {
+    box-shadow: 0 5px 20px rgba(255, 215, 0, 0.3);
+  }
+  50% {
+    box-shadow: 0 5px 40px rgba(255, 215, 0, 0.8);
+  }
+}
+
+/* Polaroid Grid (Couple Photos) */
+.polaroid-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 3rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.polaroid-card {
+  perspective: 1000px;
+  cursor: pointer;
+}
+
+.polaroid-inner {
+  position: relative;
+  width: 100%;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+}
+
+.polaroid-card:hover .polaroid-inner {
+  transform: rotateY(180deg);
+}
+
+.polaroid-front,
+.polaroid-back {
+  width: 100%;
+  backface-visibility: hidden;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.polaroid-front {
+  background: white;
+  padding: 1rem;
+  padding-bottom: 3rem;
+}
+
+.polaroid-front img {
+  width: 100%;
+  height: 350px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.polaroid-bottom {
+  padding: 1rem;
+  text-align: center;
+}
+
+.polaroid-date {
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.3rem;
+  color: var(--blush);
+  margin: 0;
+}
+
+.polaroid-back {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: linear-gradient(135deg, var(--primary-pink), var(--secondary-pink));
+  transform: rotateY(180deg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  min-height: 450px;
+}
+
+.memory-text {
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.8rem;
+  color: white;
+  text-align: center;
+  line-height: 1.6;
+}
+
+/* Video Reel */
+.video-reel {
+  display: flex;
+  gap: 2rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--blush) var(--cream);
+}
+
+.video-reel::-webkit-scrollbar {
+  height: 8px;
+}
+
+.video-reel::-webkit-scrollbar-track {
+  background: var(--cream);
+  border-radius: 10px;
+}
+
+.video-reel::-webkit-scrollbar-thumb {
+  background: var(--blush);
+  border-radius: 10px;
+}
+
+.video-item {
+  position: relative;
+  min-width: 300px;
+  scroll-snap-align: start;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.video-item:hover {
+  transform: scale(1.05);
+}
+
+.video-item video {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  display: block;
+}
+
+.video-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+  padding: 2rem 1rem 1rem;
+  color: white;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
+  text-align: center;
+}
+
+/* Closing Section */
+.closing-section {
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: linear-gradient(135deg, var(--cream), white);
+}
+
+.closing-content {
+  max-width: 800px;
+  padding: 3rem;
+}
+
+.closing-line,
+.closing-message,
+.closing-final {
+  font-family: 'Dancing Script', cursive;
+  color: var(--blush);
+  margin-bottom: 2rem;
+  line-height: 1.8;
+}
+
+.closing-line {
+  font-size: 2.5rem;
+}
+
+.closing-message {
+  font-size: 1.5rem;
+  font-family: 'Poppins', sans-serif;
+  font-style: italic;
+  color: var(--text-dark);
+}
+
+.closing-final {
+  font-size: 2rem;
+}
+
+.surprise-btn {
+  margin-top: 3rem;
+  padding: 1.2rem 3rem;
+  background: linear-gradient(135deg, #ffd700, #ffed4e);
+  border: none;
+  border-radius: 50px;
+  color: var(--text-dark);
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 5px 25px rgba(255, 215, 0, 0.4);
+  transition: all 0.3s ease;
+}
+
+.surprise-btn:hover {
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 10px 40px rgba(255, 215, 0, 0.6);
+}
+
+/* Easter Egg Modal */
+.easter-egg-modal,
+.surprise-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.5s ease;
+}
+
+.easter-egg-content,
+.surprise-content {
+  position: relative;
+  max-width: 600px;
+  width: 90%;
+  background: white;
+  border-radius: 30px;
+  padding: 2rem;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  animation: popIn 0.5s ease;
+}
+
+@keyframes popIn {
+  0% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.close-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: var(--blush);
+  color: white;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.close-btn:hover {
+  transform: rotate(90deg);
+  background: #ff4757;
+}
+
+.easter-egg-content img,
+.surprise-content img {
+  width: 100%;
+  height: auto;
+  border-radius: 20px;
+  margin-bottom: 1.5rem;
+  max-height: 400px;
+  object-fit: cover;
+}
+
+.easter-egg-message,
+.surprise-message {
+  font-family: 'Dancing Script', cursive;
+  font-size: 2rem;
+  color: var(--blush);
+  text-align: center;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+/* Surprise Modal Specific Styling */
+.surprise-header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.surprise-icon {
+  font-size: 3rem;
+  display: block;
+  margin-bottom: 0.5rem;
+  animation: bounce 1s infinite;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.surprise-title {
+  font-family: 'Dancing Script', cursive;
+  font-size: 2rem;
+  color: var(--blush);
+  margin: 0;
+}
+
+.surprise-date {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
+  color: var(--text-dark);
+  text-align: center;
+  font-style: italic;
+  opacity: 0.8;
+  margin-top: 1rem;
+}
+
+/* Empty State */
+.empty-message {
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.2rem;
+  color: var(--text-dark);
+  font-style: italic;
+  padding: 3rem;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .masonry-grid {
+    column-count: 2;
+  }
+  
+  .hero-title {
+    font-size: 3rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .masonry-grid {
+    column-count: 1;
+  }
+  
+  .hero-title {
+    font-size: 2.5rem;
+  }
+  
+  .hero-subtitle {
+    font-size: 1.1rem;
+  }
+  
+  .section-title {
+    font-size: 2.5rem;
+  }
+  
+  .polaroid-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .video-item {
+    min-width: 250px;
+  }
+}

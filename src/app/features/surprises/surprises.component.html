@@ -1,0 +1,110 @@
+<div class="surprises-page">
+  <!-- Intro Screen -->
+  <section *ngIf="showIntro()" class="intro-screen">
+    <h1 class="fade-in">Shhh… You've found something you weren't supposed to… yet 😉</h1>
+    <p class="typewriter">But since you're here… I guess it's time to show you something special.</p>
+    
+    <!-- Floating Hearts Animation -->
+    <div class="floating-hearts">
+      <span class="heart">💖</span>
+      <span class="heart">💕</span>
+      <span class="heart">💗</span>
+    </div>
+
+    <!-- Phase 1: Glowing Heart Button -->
+    <button *ngIf="showHeartButton()" class="glowing-heart" (click)="startVideo()">
+      <span class="heart-icon">💗</span>
+      <p>Click me only if you're ready 🩷</p>
+    </button>
+  </section>
+
+  <!-- Phase 1: Video Message -->
+  <section *ngIf="showVideo()" class="video-section fade-in">
+    <div class="video-container">
+      <p class="video-placeholder">🎥 Your personalized video would play here</p>
+      <p class="video-subtitle">(Add your video file to assets and update the src)</p>
+      <!-- <video controls autoplay>
+        <source src="assets/videos/your-video.mp4" type="video/mp4">
+      </video> -->
+    </div>
+    
+    <button *ngIf="showVideoNext()" class="next-surprise-btn fade-in" (click)="goToJar()">
+      Explore Next Surprise ✨
+    </button>
+  </section>
+
+  <!-- Phase 2: Digital Jar of Love Notes -->
+  <section *ngIf="showJar()" class="jar-section fade-in">
+    <h2>The Jar of Some Reasons Why I Love You 💌</h2>
+    
+    <div class="jar-container" (click)="openJar()" [class.jar-shaking]="showFlyingNotes()">
+      <div class="jar" [class.jar-opened]="jarOpened()">
+        🏺
+      </div>
+      <p *ngIf="!jarOpened()">Click the jar to open all the love notes</p>
+    </div>
+
+    <!-- Flying Love Notes -->
+    <div *ngIf="showFlyingNotes()" class="flying-notes-container">
+      <div *ngFor="let note of loveNotes; let i = index" 
+           class="flying-note"
+           [style.animation-delay.s]="i * 0.1">
+        <div class="note-content">{{ note }}</div>
+      </div>
+    </div>
+
+    <!-- Secret Gift Unlock -->
+    <div *ngIf="showSecretGift()" class="secret-unlock fade-in">
+      <p class="unlock-text">Psst… you've unlocked something else 👀</p>
+      <button class="gift-button" (click)="openSecretGift()">
+        Click to Open Your Secret Gift 🎁
+      </button>
+    </div>
+  </section>
+
+  <!-- Phase 3: Hidden Collage -->
+  <section *ngIf="showCollage()" class="collage-section fade-in">
+    <h2>Our Favorite Moments</h2>
+    <div class="collage-grid">
+      <div *ngFor="let img of collageImages" class="collage-item">
+        <img [src]="img.url" [alt]="img.caption">
+        <p class="caption">{{ img.caption }}</p>
+      </div>
+    </div>
+    
+    <button *ngIf="showCollageNext()" class="next-surprise-btn fade-in" (click)="goToFinale()">
+      Explore Next Surprise ✨
+    </button>
+  </section>
+
+  <!-- Phase 4: Grand Finale -->
+  <section *ngIf="showFinale()" class="finale-section fade-in">
+    <div class="finale-message">
+      <p class="finale-line">"Now you know my secret — this entire site was built just to make you smile."</p>
+      <p class="finale-line">"Every line of code, every animation, every word — it's all you."</p>
+      <p class="finale-line">"You're not my favorite part of this website… you're my favorite part of my life." 💖</p>
+    </div>
+
+    <div class="kiss-prompt">
+      <button class="touch-me-btn" (click)="sendKiss()">
+        Touch Me 
+      </button>
+    </div>
+
+    <!-- Kiss Animation -->
+    <div *ngIf="showKissAnimation()" class="kiss-animation">
+      <span class="kiss-emoji">😘</span>
+    </div>
+  </section>
+
+  <!-- Hidden Star Easter Egg -->
+  <div *ngIf="showHiddenStar()" class="hidden-star" (click)="foundHiddenStar()">
+    ⭐
+  </div>
+
+  <!-- Star Message -->
+  <div *ngIf="showStarMessage()" class="star-message fade-in">
+    <p>"You found the hidden star 🌟</p>
+    <p>And just like this, you'll always be the brightest part of my world."</p>
+  </div>
+</div>

@@ -1,0 +1,59 @@
+<div class="story-container">
+  <!-- 1. Hero Section -->
+  <section class="hero">
+    <div class="hero-text">
+      <h1>Every love story is beautiful — but ours is my favorite. 💕</h1>
+      <p>From the very first time our paths crossed to this exact moment, every chapter with you has been magical. This is our story.</p>
+    </div>
+  </section>
+
+  <!-- 2. Timeline Section -->
+  <section class="timeline-section">
+    <h2>Our Journey</h2>
+    <div class="timeline">
+      <div *ngIf="events().length === 0" class="empty-timeline">
+        <p>Our story is just beginning... Add the first memory from the Admin panel. 💖</p>
+      </div>
+
+      <div *ngFor="let event of events(); let i = index" 
+           class="timeline-item" 
+           [class.left]="i % 2 === 0" 
+           [class.right]="i % 2 !== 0">
+        <div class="timeline-content">
+          <div class="date">{{ event.date | date:'longDate' }}</div>
+          <h3>{{ event.title }}</h3>
+          <p>{{ event.description }}</p>
+          <!-- Placeholder for photos/videos in the modal -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Gallery Moments Section -->
+  <section class="gallery-moments">
+    <h2>A Few of My Favorite Moments</h2>
+    <div class="mini-gallery">
+      <!-- Placeholder for mini-gallery images -->
+      <div class="gallery-item"><img src="https://via.placeholder.com/300x300.png?text=Our+First+Photo" alt="Our First Photo"></div>
+      <div class="gallery-item"><img src="https://via.placeholder.com/300x300.png?text=Silly+Selfie" alt="Silly Selfie"></div>
+      <div class="gallery-item"><img src="https://via.placeholder.com/300x300.png?text=That+One+Trip" alt="That One Trip"></div>
+    </div>
+  </section>
+
+  <!-- 4. Future Dreams Section -->
+  <section class="future-dreams">
+    <h2>What's Next for Us?</h2>
+    <p>We’ve written so many beautiful chapters, but I can’t wait for what’s next...</p>
+    <ul>
+      <li>Our next trip 🌍</li>
+      <li>Celebrating our next anniversary 🥂</li>
+      <li>Building a little world of our own 💫</li>
+    </ul>
+  </section>
+
+  <!-- 5. Closing Message -->
+  <section class="closing-message">
+    <p>If someone asked me what happiness looks like, I’d just show them you.</p>
+    <p>Every second with you is a story I never want to end. 💖</p>
+  </section>
+</div>

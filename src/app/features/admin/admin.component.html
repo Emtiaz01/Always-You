@@ -1,0 +1,72 @@
+<div class="admin-container">
+  <section>
+    <h2>Manage Timeline</h2>
+    <form [formGroup]="eventForm" (ngSubmit)="onEventSubmit()" class="event-form">
+      <input type="hidden" formControlName="id" />
+      <div class="form-field">
+        <label for="date">Date</label>
+        <input id="date" type="date" formControlName="date" />
+      </div>
+      <div class="form-field">
+        <label for="title">Title</label>
+        <input id="title" type="text" formControlName="title" placeholder="Event Title" />
+      </div>
+      <div class="form-field">
+        <label for="description">Description</label>
+        <textarea id="description" formControlName="description" placeholder="Event Description"></textarea>
+      </div>
+      <div class="form-actions">
+        <button type="submit" [disabled]="eventForm.invalid">
+          {{ eventForm.get('id')?.value ? 'Update Event' : 'Add Event' }}
+        </button>
+        <button type="button" (click)="eventForm.reset()">Clear</button>
+      </div>
+    </form>
+
+    <div class="item-list">
+      <h3>Existing Events</h3>
+      <ul>
+        <li *ngFor="let event of events()">
+          <div class="item-info">
+            <strong>{{ event.title }}</strong> ({{ event.date | date:'shortDate' }})
+          </div>
+          <div class="item-actions">
+            <button (click)="editEvent(event)">Edit</button>
+            <button (click)="deleteEvent(event.id)">Delete</button>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>Manage Gallery</h2>
+    <form [formGroup]="photoForm" (ngSubmit)="onPhotoSubmit()" class="event-form">
+      <div class="form-field">
+        <label for="name">Photo Name</label>
+        <input id="name" type="text" formControlName="name" placeholder="Photo Name" />
+      </div>
+      <div class="form-field">
+        <label for="photoFile">Photo File</label>
+        <input id="photoFile" type="file" (change)="onFileSelected($event)" accept="image/*" />
+      </div>
+      <div class="form-actions">
+        <button type="submit" [disabled]="photoForm.invalid || !selectedFile">Upload Photo</button>
+      </div>
+    </form>
+
+    <div class="item-list">
+      <h3>Existing Photos</h3>
+      <ul>
+        <li *ngFor="let photo of photos()">
+          <div class="item-info">
+            <strong>{{ photo.name }}</strong>
+          </div>
+          <div class="item-actions">
+            <button (click)="deletePhoto(photo.id)">Delete</button>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+</div>

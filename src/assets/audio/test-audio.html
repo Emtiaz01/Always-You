@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            text-align: center;
+        }
+        button {
+            padding: 15px 30px;
+            font-size: 18px;
+            margin: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            border: none;
+            background: #d16081;
+            color: white;
+        }
+        button:hover {
+            background: #ff4757;
+        }
+        .status {
+            margin-top: 20px;
+            padding: 10px;
+            background: #f0f0f0;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Audio File Test</h1>
+    <p>This page tests if the audio file can be loaded and played.</p>
+    
+    <audio id="testAudio" controls preload="auto">
+        <source src="romantic-song.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <div>
+        <button onclick="playAudio()">▶️ Play</button>
+        <button onclick="pauseAudio()">⏸️ Pause</button>
+        <button onclick="checkAudio()">🔍 Check Status</button>
+    </div>
+
+    <div class="status" id="status">
+        Click "Check Status" to see audio file information
+    </div>
+
+    <script>
+        const audio = document.getElementById('testAudio');
+        const status = document.getElementById('status');
+
+        audio.addEventListener('loadeddata', () => {
+            status.innerHTML = '✅ Audio loaded successfully!<br>Duration: ' + audio.duration.toFixed(2) + ' seconds';
+        });
+
+        audio.addEventListener('error', (e) => {
+            status.innerHTML = '❌ Error loading audio<br>Error code: ' + audio.error.code + '<br>Error message: ' + audio.error.message;
+        });
+
+        function playAudio() {
+            audio.play()
+                .then(() => {
+                    status.innerHTML = '▶️ Playing audio...';
+                })
+                .catch(err => {
+                    status.innerHTML = '❌ Error playing: ' + err.message;
+                });
+        }
+
+        function pauseAudio() {
+            audio.pause();
+            status.innerHTML = '⏸️ Paused';
+        }
+
+        function checkAudio() {
+            const info = `
+                <strong>Audio File Status:</strong><br>
+                File: romantic-song.mp3<br>
+                Ready State: ${audio.readyState} (4 = HAVE_ENOUGH_DATA)<br>
+                Duration: ${audio.duration || 'Not loaded'}<br>
+                Current Time: ${audio.currentTime}<br>
+                Paused: ${audio.paused}<br>
+                Ended: ${audio.ended}<br>
+                Network State: ${audio.networkState}
+            `;
+            status.innerHTML = info;
+        }
+
+        // Auto-check on load
+        audio.addEventListener('canplaythrough', () => {
+            checkAudio();
+        });
+    </script>
+</body>
+</html>

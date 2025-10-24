@@ -1,0 +1,169 @@
+<div class="gallery-page" [class.music-playing]="isMusicPlaying()">
+  <!-- Background Effects -->
+  <div class="floating-hearts-bg">
+    <span class="heart-particle" *ngFor="let i of [1,2,3,4,5,6,7,8,9,10]">💕</span>
+  </div>
+
+  <!-- Hero Header -->
+  <section class="hero-header">
+    <div class="hero-content fade-in">
+      <h1 class="hero-title">A Thousand Pictures, One Story — Ours ❤️</h1>
+      <p class="hero-subtitle">
+        Every photo here has a heartbeat — because every moment with you is alive in my memory.
+      </p>
+      
+      <!-- Music Control -->
+      <button class="music-toggle" (click)="toggleMusic()">
+        <span *ngIf="!isMusicPlaying()">🎵 Play Our Song</span>
+        <span *ngIf="isMusicPlaying()">⏸️ Pause Music</span>
+      </button>
+    </div>
+    
+    <!-- Hero Image with Zoom -->
+    <div class="hero-image-container">
+      <img src="assets/icons/couple-hero.jpg" alt="Us Together" class="hero-couple-image" />
+    </div>
+  </section>
+
+  <!-- Your Smile Gallery (Her Section) -->
+  <section class="her-gallery-section">
+    <div class="section-header">
+      <h2 class="section-title">Your Smile 💖</h2>
+      <p class="section-subtitle">Every expression that made me fall harder</p>
+    </div>
+
+    <div class="masonry-grid">
+      <div *ngFor="let photo of herPhotos(); let i = index" 
+           class="masonry-item"
+           [class.special-photo]="photo.isSpecial"
+           (click)="onPhotoClick(photo, 'her')"
+           (mouseenter)="onPhotoHover(photo)">
+        <img [src]="photo.url" [alt]="photo.caption" />
+        <div class="photo-overlay">
+          <p class="photo-caption">{{ photo.caption }}</p>
+        </div>
+        <div class="hover-hearts">
+          <span class="floating-heart">💗</span>
+          <span class="floating-heart">💕</span>
+          <span class="floating-heart">💖</span>
+        </div>
+      </div>
+    </div>
+
+    <p *ngIf="herPhotos().length === 0" class="empty-message">
+      Add photos of her from the Admin panel to fill this section with beauty 💕
+    </p>
+  </section>
+
+  <!-- Us Together Gallery (Couple Section) -->
+  <section class="couple-gallery-section">
+    <div class="section-header">
+      <h2 class="section-title">Us Together 🫶</h2>
+      <p class="section-subtitle">Our shared adventures, goofy selfies, and everything in between</p>
+    </div>
+
+    <div class="polaroid-grid">
+      <div *ngFor="let photo of couplePhotos(); let i = index" 
+           class="polaroid-card"
+           (click)="onPhotoClick(photo, 'couple')">
+        <div class="polaroid-inner">
+          <div class="polaroid-front">
+            <img [src]="photo.url" [alt]="photo.caption" />
+            <div class="polaroid-bottom">
+              <p class="polaroid-date">{{ photo.date }}</p>
+            </div>
+          </div>
+          <div class="polaroid-back">
+            <p class="memory-text">{{ photo.memory }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p *ngIf="couplePhotos().length === 0" class="empty-message">
+      Add your favorite couple moments from the Admin panel 💑
+    </p>
+  </section>
+
+  <!-- Video Memories Section -->
+  <section class="video-memories-section">
+    <div class="section-header">
+      <h2 class="section-title">Video Memories 🎥</h2>
+      <p class="section-subtitle">Press play for instant serotonin 💞</p>
+    </div>
+
+    <div class="video-reel">
+      <div *ngFor="let video of videoMemories()" 
+           class="video-item"
+           (mouseenter)="onVideoHover(video)"
+           (mouseleave)="onVideoLeave(video)">
+        <video 
+          [src]="video.url" 
+          [muted]="true"
+          loop
+          playsinline
+          #videoElement>
+        </video>
+        <div class="video-caption">{{ video.caption }}</div>
+      </div>
+    </div>
+
+    <p *ngIf="videoMemories().length === 0" class="empty-message">
+      Add video clips from the Admin panel to relive those moments 🎬
+    </p>
+  </section>
+
+  <!-- Closing Section -->
+  <section class="closing-section">
+    <div class="closing-content fade-in-slow">
+      <p class="closing-line">"Every picture here is a piece of my heart."</p>
+      <p class="closing-message">
+        Because every moment with you — every laugh, every look, every hug —<br>
+        is something I never want to forget.
+      </p>
+      <p class="closing-final">
+        This isn't just a gallery.<br>
+        It's a collection of our forever. 💞
+      </p>
+      
+      <button class="surprise-btn" (click)="showRandomSurprise()">
+        Click for a Random Photo Surprise 💫
+      </button>
+    </div>
+  </section>
+
+  <!-- Easter Egg Modal -->
+  <div *ngIf="showEasterEgg()" class="easter-egg-modal" (click)="closeEasterEgg()">
+    <div class="easter-egg-content" (click)="$event.stopPropagation()">
+      <button class="close-btn" (click)="closeEasterEgg()">×</button>
+      <img [src]="easterEggPhoto()?.url" [alt]="easterEggPhoto()?.caption" />
+      <p class="easter-egg-message">{{ easterEggPhoto()?.specialMessage }}</p>
+    </div>
+  </div>
+
+  <!-- Random Surprise Modal -->
+  <div *ngIf="showSurpriseModal()" class="surprise-modal" (click)="closeSurprise()">
+    <div class="surprise-content" (click)="$event.stopPropagation()">
+      <button class="close-btn" (click)="closeSurprise()">×</button>
+      <div class="surprise-header">
+        <span class="surprise-icon">🎁✨</span>
+        <h3 class="surprise-title">A Special Memory</h3>
+      </div>
+      <img [src]="surprisePhoto()?.url" [alt]="surprisePhoto()?.caption" />
+      <p class="surprise-message">{{ surprisePhoto()?.surpriseNote }}</p>
+      <p class="surprise-date">{{ surprisePhoto()?.date }}</p>
+    </div>
+  </div>
+
+  <!-- Hidden Audio for Easter Egg -->
+  <audio #hiddenAudio preload="auto">
+    <source src="assets/audio/romantic-song.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <!-- Background Music -->
+  <audio #bgMusic loop preload="auto">
+    <source src="assets/audio/romantic-song.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+</div>
