@@ -36,7 +36,7 @@ export class GalleryComponent implements OnInit, AfterViewInit {
     { id: 1, url: 'assets/images/couple/couple1.jpg', name: 'Sunset Love', caption: 'Golden hour with you', date: 'Oct 2022', memory: 'Roof Top sunset', category: 'couple' },
     { id: 2, url: 'assets/images/couple/couple4.jpg', name: 'Love Notes', caption: 'Every moment counts', date: 'Nov 2022', memory: 'Unofficial Engagement', category: 'couple' },
     { id: 3, url: 'assets/images/couple/couple2.jpg', name: 'Together', caption: 'Our one of the best moments', date: 'March 2025', memory: 'Perfect day', category: 'couple' },
-    { id: 4, url: 'assets/images/couple/couple3.jpg', name: 'New place Exploration', caption: 'Made memories together', date: 'Apr 2025', memory: '3D Art Gallery', category: 'couple', surpriseNote: '🎁 Hidden surprise: Check the letters page!' },
+    { id: 4, url: 'assets/images/couple/couple3.jpg', name: 'New place Exploration', caption: 'Made memories together', date: 'Apr 2025', memory: '3D Art Gallery', category: 'couple' },
   ]);
 
 
