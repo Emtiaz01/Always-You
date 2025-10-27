@@ -1,6 +1,5 @@
 import { Component, OnInit, AfterViewInit, signal, ViewChild, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IndexedDbService } from '../../core/indexed-db.service';
 
 interface GalleryPhoto {
   id?: number;
@@ -13,7 +12,6 @@ interface GalleryPhoto {
   isSpecial?: boolean;
   specialMessage?: string;
   surpriseNote?: string;
-  blob?: Blob;
 }
 
 @Component({
@@ -27,7 +25,19 @@ export class GalleryComponent implements OnInit, AfterViewInit {
   @ViewChild('bgMusic') bgMusicRef!: ElementRef<HTMLAudioElement>;
   @ViewChild('hiddenAudio') hiddenAudioRef!: ElementRef<HTMLAudioElement>;
 
-  photos = signal<GalleryPhoto[]>([]);
+  // Add your photos manually here
+  photos = signal<GalleryPhoto[]>([
+    { id: 1, url: 'assets/images/gallery/photo1.jpg', name: 'Beautiful Smile', caption: 'Your smile lights up my world', date: 'Jan 2024', memory: 'First date vibes', category: 'her' },
+    { id: 2, url: 'assets/images/gallery/photo2.jpg', name: 'Together', caption: 'Us against the world', date: 'Feb 2024', memory: 'Perfect day', category: 'couple' },
+    { id: 3, url: 'assets/images/gallery/photo3.jpg', name: 'Sunset Love', caption: 'Golden hour with you', date: 'Mar 2024', memory: 'Beach sunset', category: 'couple' },
+    { id: 4, url: 'assets/images/gallery/photo4.jpg', name: 'Pure Joy', caption: 'This laugh is everything', date: 'Apr 2024', memory: 'Spontaneous fun', category: 'her', isSpecial: true, specialMessage: "This was the exact moment I realized I was in love with you ❤️" },
+    { id: 5, url: 'assets/images/gallery/photo5.jpg', name: 'Adventure Time', caption: 'Making memories together', date: 'May 2024', memory: 'Road trip', category: 'couple' },
+    { id: 6, url: 'assets/images/gallery/photo6.jpg', name: 'Candid Beauty', caption: 'Natural and perfect', date: 'Jun 2024', memory: 'Coffee date', category: 'her' },
+    { id: 7, url: 'assets/images/gallery/photo7.jpg', name: 'Love Notes', caption: 'Every moment counts', date: 'Jul 2024', memory: 'Lazy Sunday', category: 'couple', surpriseNote: '🎁 Hidden surprise: Check the letters page for a special message!' },
+    { id: 8, url: 'assets/images/gallery/photo8.jpg', name: 'Forever Vibes', caption: 'This is what forever looks like', date: 'Aug 2024', memory: 'Anniversary', category: 'couple' },
+    // Add more photos here...
+  ]);
+  
   herPhotos = signal<GalleryPhoto[]>([]);
   couplePhotos = signal<GalleryPhoto[]>([]);
   videoMemories = signal<GalleryPhoto[]>([]);
@@ -38,10 +48,10 @@ export class GalleryComponent implements OnInit, AfterViewInit {
   showSurpriseModal = signal(false);
   surprisePhoto = signal<GalleryPhoto | null>(null);
 
-  constructor(private idb: IndexedDbService) {}
+  constructor() {}
 
-  async ngOnInit() {
-    await this.loadPhotos();
+  ngOnInit() {
+    this.loadPhotos();
   }
 
   ngAfterViewInit() {
@@ -64,42 +74,12 @@ export class GalleryComponent implements OnInit, AfterViewInit {
     }
   }
 
-  async loadPhotos() {
-    try {
-      const photoList = await this.idb.getAllPhotos();
-      const mappedPhotos: GalleryPhoto[] = photoList.map(p => ({
-        id: parseInt(p.id),
-        url: p.blob ? URL.createObjectURL(p.blob) : '',
-        name: p.name || 'Untitled',
-        caption: this.getRandomCaption('her'),
-        date: this.formatDate(p.uploadedAt ? new Date(p.uploadedAt) : undefined),
-        memory: this.getRandomMemory(),
-        category: 'couple',
-        blob: p.blob
-      }));
-
-      this.photos.set(mappedPhotos);
-      
-      // Split photos into categories (for now, use all as couple photos)
-      // In a real app, you'd store category in IndexedDB
-      const half = Math.floor(mappedPhotos.length / 2);
-      this.herPhotos.set(mappedPhotos.slice(0, half).map(p => ({ ...p, category: 'her' as const })));
-      this.couplePhotos.set(mappedPhotos.slice(half).map(p => ({ ...p, category: 'couple' as const })));
-      
-      // Mark some as special Easter eggs
-      if (this.herPhotos().length > 0) {
-        const specialIndex = Math.floor(Math.random() * this.herPhotos().length);
-        const updatedHerPhotos = [...this.herPhotos()];
-        updatedHerPhotos[specialIndex] = {
-          ...updatedHerPhotos[specialIndex],
-          isSpecial: true,
-          specialMessage: "This was the exact moment I realized I was in love with you ❤️"
-        };
-        this.herPhotos.set(updatedHerPhotos);
-      }
-    } catch (error) {
-      console.error('Error loading photos:', error);
-    }
+  loadPhotos() {
+    // Split photos by category
+    const allPhotos = this.photos();
+    this.herPhotos.set(allPhotos.filter(p => p.category === 'her'));
+    this.couplePhotos.set(allPhotos.filter(p => p.category === 'couple'));
+    this.videoMemories.set(allPhotos.filter(p => p.category === 'video'));
   }
 
   toggleMusic() {
@@ -217,49 +197,5 @@ export class GalleryComponent implements OnInit, AfterViewInit {
   closeSurprise() {
     this.showSurpriseModal.set(false);
     this.surprisePhoto.set(null);
-  }
-
-  private formatDate(date: Date | undefined): string {
-    if (!date) return 'A special day';
-    return new Date(date).toLocaleDateString('en-US', { 
-      month: 'short', 
-      day: 'numeric', 
-      year: 'numeric' 
-    });
-  }
-
-  private getRandomCaption(category: 'her' | 'couple'): string {
-    const herCaptions = [
-      "The smile that made my world stop.",
-      "I swear this one's my favorite… until the next one.",
-      "How can someone look this perfect without even trying?",
-      "This is the photo I look at when I miss you.",
-      "You don't even know how beautiful you are.",
-      "This moment, frozen in time, makes me smile every day."
-    ];
-
-    const coupleCaptions = [
-      "Our first date… we were so shy 😭",
-      "You laughed so hard that day, and I knew I wanted that forever.",
-      "This trip changed everything.",
-      "Every picture of us feels like home.",
-      "The day we couldn't stop smiling.",
-      "My favorite memory with my favorite person."
-    ];
-
-    const captions = category === 'her' ? herCaptions : coupleCaptions;
-    return captions[Math.floor(Math.random() * captions.length)];
-  }
-
-  private getRandomMemory(): string {
-    const memories = [
-      "Our first date… we were so shy 😭",
-      "You laughed so hard that day, and I knew I wanted that forever.",
-      "This trip changed everything.",
-      "Every picture of us feels like home.",
-      "The best day with the best person.",
-      "I'll never forget this moment."
-    ];
-    return memories[Math.floor(Math.random() * memories.length)];
   }
 }

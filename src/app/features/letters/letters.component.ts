@@ -1,6 +1,5 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IndexedDbService } from '../../core/indexed-db.service';
 
 @Component({
   selector: 'app-letters',
@@ -9,8 +8,8 @@ import { IndexedDbService } from '../../core/indexed-db.service';
   templateUrl: './letters.component.html',
   styleUrls: ['./letters.component.css'],
 })
-export class LettersComponent implements OnInit {
-  // TODO: Load letters from IndexedDB and add unlock logic for anniversary
+export class LettersComponent {
+  // Add or edit your love letters here
   letters = signal([
     {
       title: 'The Day You Walked In',
@@ -35,17 +34,7 @@ export class LettersComponent implements OnInit {
     content: `It’s crazy how time has passed, and yet… every day still feels like the first. You still give me butterflies, still make me smile for no reason, and still make my world softer just by being in it. I fall in love with you a little more every single day — not because of what you do, but because of who you are. Here’s to every moment we’ve shared, and to all the tomorrows we’ll build together. I love you endlessly — more than I can ever write, more than this page can ever hold. 💞`
   };
   
-  // For now, we'll just show it. Unlock logic to be added.
-  showAnniversaryLetter = true; 
+  showAnniversaryLetter = true; // Set to false to hide anniversary letter
 
-  constructor(private idb: IndexedDbService) {}
-
-  ngOnInit() {
-    // Currently using hardcoded data.
-    // this.loadLetters(); 
-  }
-
-  async loadLetters() {
-    this.letters.set(await this.idb.getAll('letters'));
-  }
+  constructor() {}
 }

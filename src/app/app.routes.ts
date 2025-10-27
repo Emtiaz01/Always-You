@@ -6,10 +6,6 @@ export const routes: Routes = [
 		loadComponent: () => import('./features/timeline/timeline.component').then(m => m.TimelineComponent),
 	},
 	{
-		path: 'admin',
-		loadComponent: () => import('./features/admin/admin.component').then(m => m.AdminComponent),
-	},
-	{
 		path: 'gallery',
 		loadComponent: () => import('./features/gallery/gallery.component').then(m => m.GalleryComponent),
 	},

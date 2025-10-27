@@ -23,7 +23,9 @@
           <div class="date">{{ event.date | date:'longDate' }}</div>
           <h3>{{ event.title }}</h3>
           <p>{{ event.description }}</p>
-          <!-- Placeholder for photos/videos in the modal -->
+          <div class="event-photo" *ngIf="event.photo">
+            <img [src]="event.photo" [alt]="event.title" />
+          </div>
         </div>
       </div>
     </div>
@@ -34,9 +36,10 @@
     <h2>A Few of My Favorite Moments</h2>
     <div class="mini-gallery">
       <!-- Placeholder for mini-gallery images -->
-      <div class="gallery-item"><img src="https://via.placeholder.com/300x300.png?text=Our+First+Photo" alt="Our First Photo"></div>
-      <div class="gallery-item"><img src="https://via.placeholder.com/300x300.png?text=Silly+Selfie" alt="Silly Selfie"></div>
-      <div class="gallery-item"><img src="https://via.placeholder.com/300x300.png?text=That+One+Trip" alt="That One Trip"></div>
+      <div class="gallery-item"><img src="assets/images/gallery/gallery1.jpg" alt="Our First Photo"></div>
+      <div class="gallery-item"><img src="assets/images/gallery/gallery2.jpg" alt="Silly Selfie"></div>
+      <div class="gallery-item"><img src="assets/images/gallery/gallery3.jpg" alt="That One Trip"></div>
+      <div class="gallery-item"><img src="assets/images/gallery/gallery6.jpg" alt="That One Trip"></div>
     </div>
   </section>
 

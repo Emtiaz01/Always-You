@@ -1,10 +1,8 @@
 import { Component, OnInit, AfterViewInit, ViewChild, ElementRef, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { IndexedDbService } from '../../core/indexed-db.service';
 
 interface Photo {
-  id?: number;
   url: string;
   name: string;
   caption: string;
@@ -20,21 +18,32 @@ interface Photo {
 export class HomeComponent implements OnInit, AfterViewInit {
   @ViewChild('bgMusic') bgMusicRef!: ElementRef<HTMLAudioElement>;
   @ViewChild('aboutSection') aboutSectionRef!: ElementRef<HTMLElement>;
-  @ViewChild('cursorTrail') cursorTrailRef!: ElementRef<HTMLDivElement>;
 
   greeting = signal('');
   isMusicPlaying = signal(false);
   showChatBubble = signal(false);
-  previewPhotos = signal<Photo[]>([]);
-  galleryPhotos = signal<Photo[]>([]);
   
-  private cursorHearts: HTMLElement[] = [];
+  // Static photos - Replace these paths with your actual photo paths
+  previewPhotos = signal<Photo[]>([
+    { url: 'assets/images/timeline/event5.jpg', name: 'Photo 1', caption: 'Beautiful moment' },
+    { url: 'assets/images/gallery/gallery2.jpg', name: 'Photo 2', caption: 'Sweet memory' },
+    { url: 'assets/images/gallery/gallery1.jpg', name: 'Photo 3', caption: 'Happy times' },
+    { url: 'assets/images/timeline/event8.jpg', name: 'Photo 4', caption: 'Forever together' }
+  ]);
+  
+  galleryPhotos = signal<Photo[]>([
+    { url: 'assets/images/gallery1.jpg', name: 'Gallery 1', caption: 'Our adventure' },
+    { url: 'assets/images/gallery2.jpg', name: 'Gallery 2', caption: 'Precious moment' },
+    { url: 'assets/images/gallery3.jpg', name: 'Gallery 3', caption: 'Love story' },
+    { url: 'assets/images/gallery4.jpg', name: 'Gallery 4', caption: 'Special day' },
+    { url: 'assets/images/gallery5.jpg', name: 'Gallery 5', caption: 'Beautiful us' },
+    { url: 'assets/images/gallery6.jpg', name: 'Gallery 6', caption: 'Perfect memory' }
+  ]);
 
-  constructor(private idb: IndexedDbService) {}
+  constructor() {}
 
   async ngOnInit() {
     this.setGreeting();
-    await this.loadPhotos();
     
     // Show chat bubble after 3 seconds
     setTimeout(() => {
@@ -67,27 +76,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
       this.greeting.set('Good Afternoon');
     } else {
       this.greeting.set('Good Evening');
-    }
-  }
-
-  async loadPhotos() {
-    try {
-      const photos = await this.idb.getAllPhotos();
-      const mappedPhotos: Photo[] = photos.map(p => ({
-        id: p.id ? parseInt(p.id) : undefined,
-        url: p.blob ? URL.createObjectURL(p.blob) : '',
-        name: p.name || 'Untitled',
-        caption: ''
-      })).filter(p => p.url);
-
-      // Get 4 random photos for preview collage
-      const shuffled = [...mappedPhotos].sort(() => 0.5 - Math.random());
-      this.previewPhotos.set(shuffled.slice(0, 4));
-      
-      // Get 6 photos for gallery slider
-      this.galleryPhotos.set(shuffled.slice(0, 6));
-    } catch (error) {
-      console.error('Error loading photos:', error);
     }
   }
 

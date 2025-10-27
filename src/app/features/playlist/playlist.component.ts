@@ -1,6 +1,5 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IndexedDbService } from '../../core/indexed-db.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
@@ -13,17 +12,20 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 export class PlaylistComponent implements OnInit {
   playlistUrl = signal<SafeResourceUrl | null>(null);
 
-  constructor(private idb: IndexedDbService, private sanitizer: DomSanitizer) {}
+  constructor(private sanitizer: DomSanitizer) {}
 
-  async ngOnInit() {
-    const playlistItems = await this.idb.getAll('playlist') as any[];
-    if (playlistItems.length > 0) {
-      // For simplicity, using the first one. Ideally, allow selection.
-      const firstItem = playlistItems[0];
-      if (firstItem.provider === 'spotify') {
-        const url = `https://open.spotify.com/embed/playlist/${firstItem.providerId}`;
-        this.playlistUrl.set(this.sanitizer.bypassSecurityTrustResourceUrl(url));
-      }
-    }
+  ngOnInit() {
+    // Replace this with your actual Spotify playlist ID
+    // To get it: Open your playlist on Spotify > Share > Copy Playlist Link
+    // Extract the ID from the URL: https://open.spotify.com/playlist/YOUR_PLAYLIST_ID
+    const spotifyPlaylistId = '37i9dQZF1DXcBWIGoYBM5M'; // Example playlist
+    
+    const url = `https://open.spotify.com/embed/playlist/${spotifyPlaylistId}`;
+    this.playlistUrl.set(this.sanitizer.bypassSecurityTrustResourceUrl(url));
+    
+    // Alternative: Use YouTube playlist
+    // const youtubePlaylistId = 'YOUR_YOUTUBE_PLAYLIST_ID';
+    // const url = `https://www.youtube.com/embed/videoseries?list=${youtubePlaylistId}`;
+    // this.playlistUrl.set(this.sanitizer.bypassSecurityTrustResourceUrl(url));
   }
 }

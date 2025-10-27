@@ -100,6 +100,26 @@
   margin-bottom: 0.5rem;
 }
 
+.event-photo {
+  margin-top: 1rem;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.event-photo img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  max-height: 300px;
+  transition: transform 0.3s ease;
+}
+
+.event-photo img:hover {
+  transform: scale(1.05);
+}
+
 /* Gallery Moments */
 .gallery-moments {
   padding: 3rem 2rem;
