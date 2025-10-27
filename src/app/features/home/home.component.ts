@@ -32,12 +32,10 @@ export class HomeComponent implements OnInit, AfterViewInit {
   ]);
   
   galleryPhotos = signal<Photo[]>([
-    { url: 'assets/images/gallery1.jpg', name: 'Gallery 1', caption: 'Our adventure' },
-    { url: 'assets/images/gallery2.jpg', name: 'Gallery 2', caption: 'Precious moment' },
-    { url: 'assets/images/gallery3.jpg', name: 'Gallery 3', caption: 'Love story' },
-    { url: 'assets/images/gallery4.jpg', name: 'Gallery 4', caption: 'Special day' },
-    { url: 'assets/images/gallery5.jpg', name: 'Gallery 5', caption: 'Beautiful us' },
-    { url: 'assets/images/gallery6.jpg', name: 'Gallery 6', caption: 'Perfect memory' }
+    { url: 'assets/images/couple/couple4.jpg', name: 'Gallery 1', caption: 'Our adventure' },
+    { url: 'assets/images/couple/couple3.jpg', name: 'Gallery 2', caption: 'Precious moment' },
+    { url: 'assets/images/gallery/gallery8.jpg', name: 'Gallery 3', caption: 'Love story' },
+    { url: 'assets/images/couple/couple1.jpg', name: 'Gallery 4', caption: 'Special day' },
   ]);
 
   constructor() {}

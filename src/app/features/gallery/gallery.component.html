@@ -21,7 +21,7 @@
     
     <!-- Hero Image with Zoom -->
     <div class="hero-image-container">
-      <img src="assets/icons/couple-hero.jpg" alt="Us Together" class="hero-couple-image" />
+      <img src="assets/images/gallery/gallery8.jpg" alt="Us Together" class="hero-couple-image" />
     </div>
   </section>
 
@@ -51,7 +51,7 @@
     </div>
 
     <p *ngIf="herPhotos().length === 0" class="empty-message">
-      Add photos of her from the Admin panel to fill this section with beauty 💕
+      Add photos of her to the herPhotos array in gallery.component.ts 💕
     </p>
   </section>
 
@@ -59,7 +59,7 @@
   <section class="couple-gallery-section">
     <div class="section-header">
       <h2 class="section-title">Us Together 🫶</h2>
-      <p class="section-subtitle">Our shared adventures, goofy selfies, and everything in between</p>
+      <p class="section-subtitle">From silly snaps to stolen glances — our story in every frame.</p>
     </div>
 
     <div class="polaroid-grid">
@@ -79,9 +79,35 @@
         </div>
       </div>
     </div>
+  </section>
 
-    <p *ngIf="couplePhotos().length === 0" class="empty-message">
-      Add your favorite couple moments from the Admin panel 💑
+  <!-- Special Memories Section (New Third Section) -->
+  <section class="special-memories-section">
+    <div class="section-header">
+      <h2 class="section-title">Special Memories ✨</h2>
+      <p class="section-subtitle">Some milestone moments that made our story unforgettable</p>
+    </div>
+
+    <div class="masonry-grid">
+      <div *ngFor="let photo of specialPhotos(); let i = index" 
+           class="masonry-item special-memory-item"
+           (click)="onPhotoClick(photo, 'special')"
+           (mouseenter)="onPhotoHover(photo)">
+        <img [src]="photo.url" [alt]="photo.caption" />
+        <div class="photo-overlay">
+          <p class="photo-caption">{{ photo.caption }}</p>
+          <p class="photo-date">{{ photo.date }}</p>
+        </div>
+        <div class="hover-hearts">
+          <span class="floating-heart">✨</span>
+          <span class="floating-heart">💫</span>
+          <span class="floating-heart">⭐</span>
+        </div>
+      </div>
+    </div>
+
+    <p *ngIf="specialPhotos().length === 0" class="empty-message">
+      Add special moment photos to the specialPhotos array in gallery.component.ts 🎉
     </p>
   </section>
 

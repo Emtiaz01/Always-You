@@ -25,21 +25,34 @@ export class GalleryComponent implements OnInit, AfterViewInit {
   @ViewChild('bgMusic') bgMusicRef!: ElementRef<HTMLAudioElement>;
   @ViewChild('hiddenAudio') hiddenAudioRef!: ElementRef<HTMLAudioElement>;
 
-  // Add your photos manually here
-  photos = signal<GalleryPhoto[]>([
-    { id: 1, url: 'assets/images/gallery/photo1.jpg', name: 'Beautiful Smile', caption: 'Your smile lights up my world', date: 'Jan 2024', memory: 'First date vibes', category: 'her' },
-    { id: 2, url: 'assets/images/gallery/photo2.jpg', name: 'Together', caption: 'Us against the world', date: 'Feb 2024', memory: 'Perfect day', category: 'couple' },
-    { id: 3, url: 'assets/images/gallery/photo3.jpg', name: 'Sunset Love', caption: 'Golden hour with you', date: 'Mar 2024', memory: 'Beach sunset', category: 'couple' },
-    { id: 4, url: 'assets/images/gallery/photo4.jpg', name: 'Pure Joy', caption: 'This laugh is everything', date: 'Apr 2024', memory: 'Spontaneous fun', category: 'her', isSpecial: true, specialMessage: "This was the exact moment I realized I was in love with you ❤️" },
-    { id: 5, url: 'assets/images/gallery/photo5.jpg', name: 'Adventure Time', caption: 'Making memories together', date: 'May 2024', memory: 'Road trip', category: 'couple' },
-    { id: 6, url: 'assets/images/gallery/photo6.jpg', name: 'Candid Beauty', caption: 'Natural and perfect', date: 'Jun 2024', memory: 'Coffee date', category: 'her' },
-    { id: 7, url: 'assets/images/gallery/photo7.jpg', name: 'Love Notes', caption: 'Every moment counts', date: 'Jul 2024', memory: 'Lazy Sunday', category: 'couple', surpriseNote: '🎁 Hidden surprise: Check the letters page for a special message!' },
-    { id: 8, url: 'assets/images/gallery/photo8.jpg', name: 'Forever Vibes', caption: 'This is what forever looks like', date: 'Aug 2024', memory: 'Anniversary', category: 'couple' },
-    // Add more photos here...
+
+  herPhotos = signal<GalleryPhoto[]>([
+    { id: 1, url: 'assets/images/her/her4.jpg', name: 'Her Eyes', caption: 'Your eyes don’t just see — they light up my entire world.', date: 'Jan 2024', memory: 'Beautiful moment', category: 'her' },
+    { id: 2, url: 'assets/images/her/her2.jpg', name: 'Pure Beauty', caption: 'Natural and perfect', date: 'Feb 2024', memory: 'Candid shot', category: 'her' },
+    { id: 3, url: 'assets/images/her/her3.jpg', name: 'Radiant', caption: 'This look is indescribable', date: 'Mar 2024', memory: 'Happy vibes', category: 'her', isSpecial: true, specialMessage: "This was the exact moment I realized I was in love with you ❤️" },
+  ]);
+
+  couplePhotos = signal<GalleryPhoto[]>([
+    { id: 1, url: 'assets/images/couple/couple1.jpg', name: 'Sunset Love', caption: 'Golden hour with you', date: 'Oct 2022', memory: 'Roof Top sunset', category: 'couple' },
+    { id: 2, url: 'assets/images/couple/couple4.jpg', name: 'Love Notes', caption: 'Every moment counts', date: 'Nov 2022', memory: 'Unofficial Engagement', category: 'couple' },
+    { id: 3, url: 'assets/images/couple/couple2.jpg', name: 'Together', caption: 'Our one of the best moments', date: 'March 2025', memory: 'Perfect day', category: 'couple' },
+    { id: 4, url: 'assets/images/couple/couple3.jpg', name: 'New place Exploration', caption: 'Made memories together', date: 'Apr 2025', memory: '3D Art Gallery', category: 'couple', surpriseNote: '🎁 Hidden surprise: Check the letters page!' },
+  ]);
+
+
+  specialPhotos = signal<GalleryPhoto[]>([
+    { id: 1, url: 'assets/images/special/special1.jpg', name: 'Sharee Punjabi Date', caption: 'First Sharee Punjabi outing with you', date: 'Dec 2024', memory: 'Sharee Punjabi butterflies', category: 'couple' },
+    { id: 2, url: 'assets/images/special/special2.jpg', name: 'A cup of Tea', caption: 'First Tong Tea with YOU', date: 'Jul 2024', memory: 'Tea time memories', category: 'couple' },
+    { id: 3, url: 'assets/images/special/special3.jpg', name: 'Following the Trend', caption: 'Following the TREND!', date: 'Mar 2025', memory: 'Trend Time', category: 'couple' },
+
+  ]);
+
+  surpriseOnlyPhotos = signal<GalleryPhoto[]>([
+    { id: 1, url: 'assets/images/surprise/surprise1.jpg', name: 'Hidden Gem', caption: 'A secret moment just for you', date: 'Jan 2024', memory: 'Special surprise', category: 'couple' },
+    { id: 2, url: 'assets/images/surprise/surprise2.jpg', name: 'Secret Smile', caption: 'This one is just between us', date: 'Feb 2024', memory: 'Hidden memory', category: 'her' },
+    { id: 3, url: 'assets/images/surprise/surprise3.jpg', name: 'Mystery Moment', caption: 'You never saw this one coming', date: 'Mar 2024', memory: 'Surprise memory', category: 'couple' },
   ]);
   
-  herPhotos = signal<GalleryPhoto[]>([]);
-  couplePhotos = signal<GalleryPhoto[]>([]);
   videoMemories = signal<GalleryPhoto[]>([]);
   
   isMusicPlaying = signal(false);
@@ -55,11 +68,9 @@ export class GalleryComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    // Check if audio element is properly initialized
+
     if (this.bgMusicRef?.nativeElement) {
       const audio = this.bgMusicRef.nativeElement;
-      
-      // Add event listeners for debugging
       audio.addEventListener('loadeddata', () => {
         console.log('Audio loaded successfully');
       });
@@ -68,18 +79,12 @@ export class GalleryComponent implements OnInit, AfterViewInit {
         console.error('Audio loading error:', e);
         console.error('Audio error details:', audio.error);
       });
-
-      // Try to load the audio
       audio.load();
     }
   }
 
   loadPhotos() {
-    // Split photos by category
-    const allPhotos = this.photos();
-    this.herPhotos.set(allPhotos.filter(p => p.category === 'her'));
-    this.couplePhotos.set(allPhotos.filter(p => p.category === 'couple'));
-    this.videoMemories.set(allPhotos.filter(p => p.category === 'video'));
+
   }
 
   toggleMusic() {
@@ -156,21 +161,19 @@ export class GalleryComponent implements OnInit, AfterViewInit {
   }
 
   showRandomSurprise() {
-    const allPhotos = [...this.herPhotos(), ...this.couplePhotos()];
+    // Combine gallery photos AND surprise-only photos for the random surprise
+    const allPhotos = [
+      ...this.surpriseOnlyPhotos()  // Hidden photos that only appear in surprises!
+    ];
     if (allPhotos.length === 0) return;
     
     const surpriseMessages = [
-      "This one's the moment I fell for you, but didn't realize it yet. 💕",
       "Every time I look at this photo, I fall in love all over again. 💖",
-      "This is the exact moment I knew you were the one. ✨",
       "I keep this photo close to my heart, always. 🌹",
       "This smile? This is what happiness looks like to me. 😊",
       "Looking at this makes me realize how lucky I am. 🍀",
-      "This is my favorite version of us - genuine, happy, together. 💑",
       "I didn't take enough photos this day, but this one says everything. 📸",
       "This moment right here? This is when time stood still. ⏰💫",
-      "I showed this photo to everyone because I'm that proud to be yours. 🥰",
-      "Remember this day? I still smile thinking about it. 😌",
       "This is the photo I look at when I need a reason to smile. 🌟",
       "You have no idea how beautiful you are in this picture. 👑",
       "This captures everything I love about you in one frame. 💝",

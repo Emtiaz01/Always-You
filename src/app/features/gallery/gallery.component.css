@@ -159,6 +159,7 @@
 /* Section Styling */
 .her-gallery-section,
 .couple-gallery-section,
+.special-memories-section,
 .video-memories-section,
 .closing-section {
   padding: 5rem 2rem;
@@ -307,6 +308,47 @@
   50% {
     box-shadow: 0 5px 40px rgba(255, 215, 0, 0.8);
   }
+}
+
+/* Special Memories Items */
+.special-memory-item {
+  position: relative;
+  background: linear-gradient(135deg, #fff9e6, #ffffff);
+  border: 2px solid #ffd700;
+}
+
+.special-memory-item::before {
+  content: '✨';
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 2rem;
+  z-index: 2;
+  animation: sparkle 2s ease-in-out infinite;
+}
+
+@keyframes sparkle {
+  0%, 100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 0.7;
+  }
+  50% {
+    transform: scale(1.2) rotate(180deg);
+    opacity: 1;
+  }
+}
+
+.special-memory-item .photo-overlay {
+  background: linear-gradient(to top, rgba(255, 215, 0, 0.9), transparent);
+}
+
+.special-memory-item .photo-date {
+  color: #ffffff;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-align: center;
+  margin-top: 0.5rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 /* Polaroid Grid (Couple Photos) */
