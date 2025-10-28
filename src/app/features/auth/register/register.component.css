@@ -1,0 +1,502 @@
+/* Auth Container - Split Screen */
+.auth-container {
+  display: flex;
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Floating Hearts Animation */
+.floating-hearts {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.heart {
+  position: absolute;
+  bottom: -50px;
+  font-size: 2rem;
+  opacity: 0.6;
+  animation: floatUp 15s infinite ease-in;
+}
+
+@keyframes floatUp {
+  0% {
+    bottom: -50px;
+    opacity: 0;
+    transform: translateX(0) rotate(0deg);
+  }
+  10% {
+    opacity: 0.6;
+  }
+  90% {
+    opacity: 0.3;
+  }
+  100% {
+    bottom: 110%;
+    opacity: 0;
+    transform: translateX(-100px) rotate(-360deg);
+  }
+}
+
+/* Success Hearts */
+.success-heart {
+  position: fixed;
+  bottom: 50%;
+  font-size: 2.5rem;
+  z-index: 9999;
+  pointer-events: none;
+  animation: successHeartPop 3s ease-out forwards;
+}
+
+@keyframes successHeartPop {
+  0% {
+    bottom: 50%;
+    opacity: 1;
+    transform: scale(0) rotate(0deg);
+  }
+  50% {
+    transform: scale(1.3) rotate(180deg);
+  }
+  100% {
+    bottom: 120%;
+    opacity: 0;
+    transform: scale(1) rotate(360deg);
+  }
+}
+
+/* Left Section - Welcome */
+.left-section {
+  flex: 1;
+  background: linear-gradient(135deg, #fff0f5 0%, #ffe4f0 25%, #ffd6e7 50%, #ffc8de 75%, #ffb3d9 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 3rem;
+  z-index: 2;
+}
+
+/* Floating Emoji Icons */
+.emoji-float {
+  position: absolute;
+  font-size: 3rem;
+  opacity: 0.5;
+  animation: emojiFloat 5s ease-in-out infinite;
+}
+
+.emoji-1 {
+  top: 15%;
+  left: 15%;
+  animation-delay: 0s;
+}
+
+.emoji-2 {
+  top: 60%;
+  left: 10%;
+  animation-delay: 1s;
+}
+
+.emoji-3 {
+  bottom: 20%;
+  right: 15%;
+  animation-delay: 2s;
+}
+
+.emoji-4 {
+  top: 25%;
+  right: 20%;
+  animation-delay: 1.5s;
+}
+
+@keyframes emojiFloat {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-20px) rotate(90deg);
+  }
+  50% {
+    transform: translateY(-10px) rotate(180deg);
+  }
+  75% {
+    transform: translateY(-15px) rotate(270deg);
+  }
+}
+
+.welcome-content {
+  text-align: center;
+  max-width: 500px;
+}
+
+.welcome-title {
+  font-family: 'Dancing Script', cursive;
+  font-size: 3.5rem;
+  color: #d16081;
+  margin-bottom: 1rem;
+  text-shadow: 2px 2px 4px rgba(209, 96, 129, 0.2);
+  line-height: 1.2;
+}
+
+.welcome-subtitle {
+  font-size: 1.5rem;
+  color: #ff85c1;
+  margin-bottom: 2rem;
+  font-weight: 500;
+}
+
+.cute-tagline {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(255, 255, 255, 0.7);
+  padding: 1rem 2rem;
+  border-radius: 50px;
+  font-size: 1.1rem;
+  color: #d16081;
+  font-weight: 600;
+  box-shadow: 0 4px 15px rgba(209, 96, 129, 0.2);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.tagline-icon {
+  font-size: 1.5rem;
+  animation: heartBeat 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+@keyframes heartBeat {
+  0%, 100% {
+    transform: scale(1);
+  }
+  25% {
+    transform: scale(1.2);
+  }
+  50% {
+    transform: scale(1);
+  }
+}
+
+/* Right Section - Register Card */
+.right-section {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+  background: linear-gradient(135deg, #ffffff 0%, #fff5f9 100%);
+  z-index: 2;
+}
+
+.register-card {
+  width: 100%;
+  max-width: 500px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 30px;
+  padding: 3rem;
+  box-shadow: 0 20px 60px rgba(209, 96, 129, 0.3);
+  border: 3px solid transparent;
+  background-clip: padding-box;
+  position: relative;
+}
+
+.register-card::before {
+  content: '';
+  position: absolute;
+  top: -3px;
+  left: -3px;
+  right: -3px;
+  bottom: -3px;
+  background: linear-gradient(135deg, #ffb3d9, #ff85c1, #d16081, #ff85c1, #ffb3d9);
+  border-radius: 30px;
+  z-index: -1;
+  background-size: 200% 200%;
+  animation: gradientRotate 5s ease infinite;
+}
+
+@keyframes gradientRotate {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* Card Header */
+.card-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.card-title {
+  font-family: 'Dancing Script', cursive;
+  font-size: 2.5rem;
+  color: #fffafc;
+  margin-bottom: 0.5rem;
+}
+
+.card-subtitle {
+  font-size: 1rem;
+  color: #fffafc;
+  font-weight: 500;
+}
+
+/* Form Styles */
+.register-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #fffafc;
+}
+
+.label-icon {
+  font-size: 1.2rem;
+}
+
+.form-input {
+  padding: 1rem 1.5rem;
+  border: 2px solid #ffe4ec;
+  border-radius: 20px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background: #fff;
+  font-family: 'Poppins', sans-serif;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: #ffb3d9;
+  box-shadow: 0 0 20px rgba(255, 179, 217, 0.4);
+  transform: translateY(-2px);
+}
+
+.form-input::placeholder {
+  color: #ffb3d9;
+}
+
+/* Password Wrapper */
+.password-wrapper {
+  position: relative;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.toggle-password:hover {
+  transform: translateY(-50%) scale(1.2);
+}
+
+/* Error Message */
+.error-message {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem;
+  background: #ffe4ec;
+  border-radius: 15px;
+  color: #ff85c1;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.error-icon {
+  font-size: 1.2rem;
+}
+
+/* Submit Button */
+.submit-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 1.25rem 2rem;
+  background: linear-gradient(135deg, #ff85c1, #d16081);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 10px 30px rgba(209, 96, 129, 0.4);
+  position: relative;
+  overflow: hidden;
+  font-family: 'Poppins', sans-serif;
+  margin-top: 0.5rem;
+}
+
+.submit-btn::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.submit-btn:hover::before {
+  width: 300px;
+  height: 300px;
+}
+
+.submit-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 40px rgba(209, 96, 129, 0.5);
+}
+
+.submit-btn:active {
+  transform: translateY(-1px);
+}
+
+.submit-btn.loading {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.btn-icon {
+  font-size: 1.3rem;
+  animation: heartBeat 1.5s ease-in-out infinite;
+}
+
+.btn-text {
+  position: relative;
+  z-index: 1;
+}
+
+/* Terms Tagline */
+.terms-tagline {
+  text-align: center;
+  margin-top: 0.5rem;
+}
+
+.terms-text {
+  font-size: 0.85rem;
+  color: #fffafc;
+  line-height: 1.5;
+  font-style: italic;
+}
+
+/* Switch Link */
+.switch-link {
+  text-align: center;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #ffe4ec;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.switch-text {
+  font-size: 0.95rem;
+  color: #fffafc;
+}
+
+.switch-btn {
+  display: inline-block;
+  color: #fffafc;
+  font-weight: 700;
+  text-decoration: none;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.switch-btn::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: #ff85c1;
+  transition: width 0.3s ease;
+}
+
+.switch-btn:hover::after {
+  width: 100%;
+}
+
+.switch-btn:hover {
+  color: #ff85c1;
+  transform: translateY(-2px);
+}
+
+/* Mobile Responsive */
+@media (max-width: 968px) {
+  .auth-container {
+    flex-direction: column;
+  }
+
+  .left-section {
+    min-height: 35vh;
+    padding: 2rem;
+  }
+
+  .welcome-title {
+    font-size: 2.5rem;
+  }
+
+  .welcome-subtitle {
+    font-size: 1.2rem;
+  }
+
+  .emoji-float {
+    font-size: 2rem;
+  }
+
+  .right-section {
+    padding: 2rem 1rem;
+  }
+
+  .register-card {
+    padding: 2rem;
+  }
+
+  .card-title {
+    font-size: 2rem;
+  }
+}

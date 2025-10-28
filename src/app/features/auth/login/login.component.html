@@ -1,0 +1,109 @@
+<div class="auth-container">
+  <!-- Floating Hearts Background -->
+  <div class="floating-hearts">
+    <span class="heart" style="left: 10%; animation-delay: 0s;">💖</span>
+    <span class="heart" style="left: 20%; animation-delay: 2s;">💕</span>
+    <span class="heart" style="left: 30%; animation-delay: 4s;">💗</span>
+    <span class="heart" style="left: 40%; animation-delay: 1s;">💓</span>
+    <span class="heart" style="left: 50%; animation-delay: 3s;">💝</span>
+    <span class="heart" style="left: 60%; animation-delay: 5s;">💖</span>
+    <span class="heart" style="left: 70%; animation-delay: 2.5s;">💕</span>
+    <span class="heart" style="left: 80%; animation-delay: 4.5s;">💗</span>
+    <span class="heart" style="left: 90%; animation-delay: 1.5s;">💓</span>
+  </div>
+
+  <!-- Left Side - Welcome Section -->
+  <div class="left-section">
+    <div class="sparkles">✨</div>
+    <div class="welcome-content">
+      <h1 class="welcome-title">Welcome My,<br>GushiMushi 😘</h1>
+      <p class="welcome-subtitle">Love is just a password away 💞</p>
+      <div class="cute-tagline">
+        <span class="tagline-icon">🔓</span>
+        <span>You + Me + Password = Destiny 💫</span>
+      </div>
+    </div>
+    <div class="sparkles sparkles-bottom">✨</div>
+  </div>
+
+  <!-- Right Side - Login Card -->
+  <div class="right-section">
+    <div class="login-card">
+      <div class="card-header">
+        <h2 class="card-title">Hey cutie 👀</h2>
+        <p class="card-subtitle">Sign in… let's get dangerously cute 😈</p>
+      </div>
+
+      <form class="login-form" (ngSubmit)="onSubmit()">
+        <!-- Email Field -->
+        <div class="form-group">
+          <label for="email" class="form-label">
+            <span class="label-icon">💌</span>
+            Email
+          </label>
+          <input
+            type="email"
+            id="email"
+            class="form-input"
+            placeholder="your.heart@love.com"
+            [(ngModel)]="email"
+            name="email"
+            required
+          />
+        </div>
+
+        <!-- Password Field -->
+        <div class="form-group">
+          <label for="password" class="form-label">
+            <span class="label-icon">🔐</span>
+            Password
+          </label>
+          <div class="password-wrapper">
+            <input
+              [type]="showPassword() ? 'text' : 'password'"
+              id="password"
+              class="form-input"
+              placeholder="••••••••"
+              [(ngModel)]="password"
+              name="password"
+              required
+            />
+            <button
+              type="button"
+              class="toggle-password"
+              (click)="togglePasswordVisibility()"
+            >
+              {{ showPassword() ? '👁️' : '🙈' }}
+            </button>
+          </div>
+        </div>
+
+        <!-- Error Message -->
+        <div class="error-message" *ngIf="errorMessage()">
+          <span class="error-icon">💔</span>
+          {{ errorMessage() }}
+        </div>
+
+        <!-- Submit Button -->
+        <button
+          type="submit"
+          class="submit-btn"
+          [class.loading]="isLoading()"
+          [disabled]="isLoading()"
+        >
+          <span class="btn-icon" *ngIf="!isLoading()">❤️</span>
+          <span class="btn-text">
+            {{ isLoading() ? 'Falling in love...' : "Let's Fall In Again" }}
+          </span>
+          <span class="btn-icon" *ngIf="!isLoading()">❤️</span>
+        </button>
+
+        <!-- Switch to Register -->
+        <div class="switch-link">
+          <span class="switch-text">New here? Let's make some magic 💋</span>
+          <a routerLink="/register" class="switch-btn">Sign Up</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

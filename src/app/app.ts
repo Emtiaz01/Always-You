@@ -2,6 +2,7 @@ import { Component, signal } from '@angular/core';
 import { RouterLink, RouterOutlet, RouterLinkActive } from '@angular/router';
 import { ScrollToTopComponent } from './shared/scroll-to-top/scroll-to-top.component';
 import { GlobalMusicService } from './core/services/global-music.service';
+import { AuthService } from './core/services/auth.service';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -15,7 +16,10 @@ export class App {
   protected readonly title = signal('my-girlfriend-site');
   showVolumeSlider = signal(false);
   
-  constructor(public musicService: GlobalMusicService) {}
+  constructor(
+    public musicService: GlobalMusicService,
+    public authService: AuthService
+  ) {}
   
   toggleMusic() {
     this.musicService.toggle();
@@ -37,5 +41,9 @@ export class App {
   
   previousSong() {
     this.musicService.playPrevious();
+  }
+
+  logout() {
+    this.authService.logout();
   }
 }
