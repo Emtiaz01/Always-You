@@ -22,9 +22,6 @@ interface GalleryPhoto {
   styleUrls: ['./gallery.component.css'],
 })
 export class GalleryComponent implements OnInit, AfterViewInit {
-  @ViewChild('bgMusic') bgMusicRef!: ElementRef<HTMLAudioElement>;
-  @ViewChild('hiddenAudio') hiddenAudioRef!: ElementRef<HTMLAudioElement>;
-
 
   herPhotos = signal<GalleryPhoto[]>([
     { id: 1, url: 'assets/images/her/her4.jpg', name: 'Her Eyes', caption: 'Your eyes don’t just see — they light up my entire world.', date: 'Jan 2024', memory: 'Beautiful moment', category: 'her' },
@@ -54,6 +51,8 @@ export class GalleryComponent implements OnInit, AfterViewInit {
   ]);
   
   videoMemories = signal<GalleryPhoto[]>([]);
+  currentSongIndex = 0;
+  selectedSong = '';
   
   isMusicPlaying = signal(false);
   showEasterEgg = signal(false);
@@ -61,86 +60,28 @@ export class GalleryComponent implements OnInit, AfterViewInit {
   showSurpriseModal = signal(false);
   surprisePhoto = signal<GalleryPhoto | null>(null);
 
-  constructor() {}
-
   ngOnInit() {
     this.loadPhotos();
   }
 
   ngAfterViewInit() {
-
-    if (this.bgMusicRef?.nativeElement) {
-      const audio = this.bgMusicRef.nativeElement;
-      audio.addEventListener('loadeddata', () => {
-        console.log('Audio loaded successfully');
-      });
-      
-      audio.addEventListener('error', (e) => {
-        console.error('Audio loading error:', e);
-        console.error('Audio error details:', audio.error);
-      });
-      audio.load();
-    }
   }
 
   loadPhotos() {
 
   }
 
-  toggleMusic() {
-    const audio = this.bgMusicRef?.nativeElement;
-    
-    if (!audio) {
-      console.error('Audio element not found');
-      return;
-    }
-
-    if (this.isMusicPlaying()) {
-      audio.pause();
-      this.isMusicPlaying.set(false);
-    } else {
-      // Try to play and handle any errors
-      const playPromise = audio.play();
-      
-      if (playPromise !== undefined) {
-        playPromise
-          .then(() => {
-            console.log('Audio playing successfully');
-            this.isMusicPlaying.set(true);
-          })
-          .catch(error => {
-            console.error('Error playing audio:', error);
-            alert('Unable to play audio. Please check:\n1. Audio file exists\n2. File path is correct\n3. Browser allows audio playback');
-            this.isMusicPlaying.set(false);
-          });
-      }
-    }
-  }
-
   onPhotoClick(photo: GalleryPhoto, category: string) {
     if (photo.isSpecial) {
       this.easterEggPhoto.set(photo);
       this.showEasterEgg.set(true);
-      
-      // Play hidden audio if available
-      setTimeout(() => {
-        const hiddenAudio = this.hiddenAudioRef?.nativeElement;
-        if (hiddenAudio) {
-          hiddenAudio.play().catch(error => {
-            console.error('Error playing easter egg audio:', error);
-          });
-        }
-      }, 500);
     }
   }
 
   onPhotoHover(photo: GalleryPhoto) {
-    // Add hover sound effect if desired
-    // Could play a subtle camera shutter sound
   }
 
   onVideoHover(video: GalleryPhoto) {
-    // Auto-play video on hover (muted)
     const videoElements = document.querySelectorAll('.video-item video');
     videoElements.forEach((el: any) => {
       if (el.src === video.url) {
@@ -150,7 +91,6 @@ export class GalleryComponent implements OnInit, AfterViewInit {
   }
 
   onVideoLeave(video: GalleryPhoto) {
-    // Pause video when mouse leaves
     const videoElements = document.querySelectorAll('.video-item video');
     videoElements.forEach((el: any) => {
       if (el.src === video.url) {
@@ -161,9 +101,8 @@ export class GalleryComponent implements OnInit, AfterViewInit {
   }
 
   showRandomSurprise() {
-    // Combine gallery photos AND surprise-only photos for the random surprise
     const allPhotos = [
-      ...this.surpriseOnlyPhotos()  // Hidden photos that only appear in surprises!
+      ...this.surpriseOnlyPhotos()
     ];
     if (allPhotos.length === 0) return;
     
@@ -194,7 +133,6 @@ export class GalleryComponent implements OnInit, AfterViewInit {
   closeEasterEgg() {
     this.showEasterEgg.set(false);
     this.easterEggPhoto.set(null);
-    this.hiddenAudioRef?.nativeElement?.pause();
   }
 
   closeSurprise() {

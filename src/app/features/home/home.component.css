@@ -164,25 +164,6 @@
   font-style: italic;
 }
 
-.music-toggle-btn {
-  margin: 1.5rem 0.5rem;
-  padding: 0.8rem 2rem;
-  background: linear-gradient(135deg, var(--rose-pink), var(--blush));
-  border: none;
-  border-radius: 50px;
-  color: white;
-  font-family: 'Poppins', sans-serif;
-  font-size: 1rem;
-  cursor: pointer;
-  box-shadow: 0 5px 20px rgba(209, 96, 129, 0.3);
-  transition: all 0.3s ease;
-}
-
-.music-toggle-btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 30px rgba(209, 96, 129, 0.5);
-}
-
 .begin-story-btn {
   margin-top: 2rem;
   padding: 1.2rem 3rem;

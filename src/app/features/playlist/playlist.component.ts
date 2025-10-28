@@ -18,9 +18,9 @@ export class PlaylistComponent implements OnInit {
     // Replace this with your actual Spotify playlist ID
     // To get it: Open your playlist on Spotify > Share > Copy Playlist Link
     // Extract the ID from the URL: https://open.spotify.com/playlist/YOUR_PLAYLIST_ID
-    const spotifyPlaylistId = '37i9dQZF1DXcBWIGoYBM5M'; // Example playlist
-    
-    const url = `https://open.spotify.com/embed/playlist/${spotifyPlaylistId}`;
+    const youtubePlaylistId = 'NvkTqQCift4?si=mspA-dK2fELpbPti'; // Example playlist
+
+    const url = `https://www.youtube.com/embed/videoseries?list=${youtubePlaylistId}`;
     this.playlistUrl.set(this.sanitizer.bypassSecurityTrustResourceUrl(url));
     
     // Alternative: Use YouTube playlist

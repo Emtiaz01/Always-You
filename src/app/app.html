@@ -6,6 +6,45 @@
   <a routerLink="/playlist">Playlist</a>
   <a routerLink="/surprises">Surprises</a> -->
 </nav>
+
+<!-- Global Music Control -->
+<div class="global-music-wrapper">
+  <div class="music-controls">
+    <button class="control-btn" (click)="previousSong()" *ngIf="musicService.isPlaying()" title="Previous Song">
+      ⏮️
+    </button>
+    
+    <button class="global-music-control" (click)="toggleMusic()" [class.playing]="musicService.isPlaying()">
+      <span class="music-icon" *ngIf="!musicService.isPlaying()">🎵</span>
+      <span class="music-icon playing" *ngIf="musicService.isPlaying()">🎶</span>
+      <span class="music-text">{{ musicService.isPlaying() ? 'Music On' : 'Play Music' }}</span>
+    </button>
+    
+    <button class="control-btn" (click)="nextSong()" *ngIf="musicService.isPlaying()" title="Next Song">
+      ⏭️
+    </button>
+    
+    <button class="volume-toggle" (click)="toggleVolumeSlider()" *ngIf="musicService.isPlaying()" title="Volume">
+      <span *ngIf="musicService.volume() > 0.5">🔊</span>
+      <span *ngIf="musicService.volume() > 0 && musicService.volume() <= 0.5">🔉</span>
+      <span *ngIf="musicService.volume() === 0">🔇</span>
+    </button>
+  </div>
+  
+  <div class="volume-slider-wrapper" *ngIf="showVolumeSlider() && musicService.isPlaying()">
+    <input 
+      type="range" 
+      min="0" 
+      max="1" 
+      step="0.05" 
+      [value]="musicService.volume()" 
+      (input)="onVolumeChange($event)"
+      class="volume-slider"
+    />
+    <span class="volume-label">{{ (musicService.volume() * 100).toFixed(0) }}%</span>
+  </div>
+</div>
+
 <router-outlet />
 
 <!-- Scroll to Top Cartoon Button -->

@@ -1,9 +1,5 @@
 import { Injectable } from '@angular/core';
 import { openDB, DBSchema, IDBPDatabase } from 'idb';
-
-/**
- * Typed database schema for the love site.
- */
 interface LoveSiteDB extends DBSchema {
   settings: {
     key: string;
@@ -13,11 +9,11 @@ interface LoveSiteDB extends DBSchema {
     key: string;
     value: {
       id: string;
-      date: string; // ISO
+      date: string; 
       title: string;
       description?: string;
-      photos?: string[]; // photo ids
-      videos?: string[]; // urls
+      photos?: string[]; 
+      videos?: string[]; 
       createdAt: string;
       updatedAt?: string;
     };

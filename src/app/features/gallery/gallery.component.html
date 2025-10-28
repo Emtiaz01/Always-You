@@ -11,12 +11,6 @@
       <p class="hero-subtitle">
         Every photo here has a heartbeat — because every moment with you is alive in my memory.
       </p>
-      
-      <!-- Music Control -->
-      <button class="music-toggle" (click)="toggleMusic()">
-        <span *ngIf="!isMusicPlaying()">🎵 Play Our Song</span>
-        <span *ngIf="isMusicPlaying()">⏸️ Pause Music</span>
-      </button>
     </div>
     
     <!-- Hero Image with Zoom -->
@@ -173,23 +167,11 @@
       <button class="close-btn" (click)="closeSurprise()">×</button>
       <div class="surprise-header">
         <span class="surprise-icon">🎁✨</span>
-        <h3 class="surprise-title">A Special Memory</h3>
+        <h3 class="surprise-title">Special YOU🫵</h3>
       </div>
       <img [src]="surprisePhoto()?.url" [alt]="surprisePhoto()?.caption" />
       <p class="surprise-message">{{ surprisePhoto()?.surpriseNote }}</p>
       <p class="surprise-date">{{ surprisePhoto()?.date }}</p>
     </div>
   </div>
-
-  <!-- Hidden Audio for Easter Egg -->
-  <audio #hiddenAudio preload="auto">
-    <source src="assets/audio/romantic-song.mp3" type="audio/mpeg">
-    Your browser does not support the audio element.
-  </audio>
-
-  <!-- Background Music -->
-  <audio #bgMusic loop preload="auto">
-    <source src="assets/audio/romantic-song.mp3" type="audio/mpeg">
-    Your browser does not support the audio element.
-  </audio>
 </div>

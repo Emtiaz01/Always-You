@@ -16,14 +16,11 @@ interface Photo {
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit, AfterViewInit {
-  @ViewChild('bgMusic') bgMusicRef!: ElementRef<HTMLAudioElement>;
   @ViewChild('aboutSection') aboutSectionRef!: ElementRef<HTMLElement>;
 
   greeting = signal('');
-  isMusicPlaying = signal(false);
   showChatBubble = signal(false);
-  
-  // Static photos - Replace these paths with your actual photo paths
+
   previewPhotos = signal<Photo[]>([
     { url: 'assets/images/timeline/event5.jpg', name: 'Photo 1', caption: 'Beautiful moment' },
     { url: 'assets/images/gallery/gallery2.jpg', name: 'Photo 2', caption: 'Sweet memory' },
@@ -42,12 +39,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   async ngOnInit() {
     this.setGreeting();
-    
-    // Show chat bubble after 3 seconds
     setTimeout(() => {
       this.showChatBubble.set(true);
-      
-      // Auto-hide after 8 seconds
       setTimeout(() => {
         this.showChatBubble.set(false);
       }, 8000);
@@ -57,13 +50,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     this.initCursorTrail();
     this.initScrollAnimations();
-    
-    // Initialize background music
-    if (this.bgMusicRef?.nativeElement) {
-      const audio = this.bgMusicRef.nativeElement;
-      audio.volume = 0.3; // Set to 30% volume
-      audio.load();
-    }
   }
 
   setGreeting() {
@@ -77,23 +63,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
     }
   }
 
-  toggleBackgroundMusic() {
-    const audio = this.bgMusicRef?.nativeElement;
-    if (!audio) return;
-
-    if (this.isMusicPlaying()) {
-      audio.pause();
-      this.isMusicPlaying.set(false);
-    } else {
-      audio.play()
-        .then(() => this.isMusicPlaying.set(true))
-        .catch(error => {
-          console.error('Error playing music:', error);
-          alert('Unable to play music. Please check your browser settings.');
-        });
-    }
-  }
-
   scrollToNextSection() {
     this.aboutSectionRef?.nativeElement?.scrollIntoView({ 
       behavior: 'smooth',
@@ -102,12 +71,10 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   onPhotoHover(photo: Photo) {
-    // Add sparkle effect on hover
     console.log('Hovering over:', photo.name);
   }
 
   onPhotoLeave() {
-    // Remove sparkle effect
   }
 
   closeChatBubble() {
@@ -118,7 +85,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
     if (typeof document === 'undefined') return;
 
     document.addEventListener('mousemove', (e) => {
-      // Create heart trail on random movements
       if (Math.random() > 0.95) {
         this.createCursorHeart(e.clientX, e.clientY);
       }
@@ -132,8 +98,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
     heart.style.left = `${x}px`;
     heart.style.top = `${y}px`;
     document.body.appendChild(heart);
-
-    // Remove after animation
     setTimeout(() => {
       heart.remove();
     }, 1000);
@@ -152,8 +116,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
         }
       });
     }, observerOptions);
-
-    // Observe all fade-in elements
     document.querySelectorAll('.fade-in, .fade-in-up, .fade-in-left, .fade-in-right').forEach(el => {
       observer.observe(el);
     });
