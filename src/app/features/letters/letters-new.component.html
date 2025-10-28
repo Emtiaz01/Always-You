@@ -1,0 +1,121 @@
+<div class="letters-page">
+  <!-- Floating Love Elements -->
+  <div class="floating-love-elements">
+    <span class="float-element" *ngFor="let i of [1,2,3,4,5,6,7,8]">💕</span>
+  </div>
+  
+  <header class="letters-header">
+    <div class="heart-decoration">
+      <span class="heart-pulse">💖</span>
+      <span class="sparkle">✨</span>
+      <span class="heart-pulse">💖</span>
+    </div>
+    <h1>Letters From My Heart — To the One Who Owns It ❤️</h1>
+    <div class="love-divider">
+      <span>💌</span>
+      <span class="divider-line"></span>
+      <span>💝</span>
+      <span class="divider-line"></span>
+      <span>💌</span>
+    </div>
+    <p>These are not just words. They're the feelings I could never say out loud without my voice shaking. So, I wrote them here — so you can feel them whenever you miss me, need comfort, or just want a reminder of how much I love you. 💕</p>
+  </header>
+
+  <div class="letters-container">
+    <div *ngFor="let letter of letters(); let i = index" class="letter-card" [class.special-letter]="i === 0">
+      <div class="envelope-top">
+        <div class="letter-icon">💌</div>
+        <div class="love-stamp">
+          <span class="stamp-heart">❤️</span>
+          <span class="stamp-text">With Love</span>
+        </div>
+      </div>
+      <h3>{{ letter.title }}</h3>
+      <div class="letter-content">
+        <p>{{ letter.content }}</p>
+      </div>
+      <div class="letter-footer">
+        <span class="signature">Forever Yours 💕</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Anniversary Letters Section -->
+  <div class="section-divider">
+    <div class="divider-hearts">
+      <span class="sparkle-heart">👑</span>
+      <h2 class="section-title">Milestone & Anniversary Letters</h2>
+      <span class="sparkle-heart">👑</span>
+    </div>
+    <p class="section-subtitle">Celebrating every special moment with you ✨💝</p>
+  </div>
+
+  <div class="letters-container anniversary-container">
+    <div *ngFor="let letter of anniversaryLetters()" class="letter-card anniversary-letter magical-letter">
+      <div class="golden-glow"></div>
+      <div class="envelope-top">
+        <div class="letter-icon golden-icon">💝</div>
+        <div class="love-stamp golden-stamp">
+          <span class="stamp-heart">👑</span>
+          <span class="stamp-text">Milestone</span>
+        </div>
+      </div>
+      <h3>{{ letter.title }}</h3>
+      <div class="letter-content">
+        <p>{{ letter.content }}</p>
+      </div>
+      <div class="letter-footer">
+        <span class="signature golden-signature">Eternally Yours 💖✨</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Special Letters Section -->
+  <div class="section-divider">
+    <div class="divider-hearts">
+      <span class="sparkle-heart">💕</span>
+      <h2 class="section-title">Extra Special Letters Just For You</h2>
+      <span class="sparkle-heart">💕</span>
+    </div>
+    <p class="section-subtitle">Because some feelings deserve their own spotlight ✨</p>
+  </div>
+
+  <div class="letters-container special-container">
+    <div *ngFor="let letter of specialLetters(); let i = index" class="letter-card special-card" [class.pink-glow]="i === 1">
+      <div class="envelope-top special-envelope">
+        <div class="letter-icon">💌</div>
+        <div class="love-stamp special-stamp">
+          <span class="stamp-heart">💖</span>
+          <span class="stamp-text">Extra Love</span>
+        </div>
+      </div>
+      <h3>{{ letter.title }}</h3>
+      <div class="letter-content">
+        <p>{{ letter.content }}</p>
+      </div>
+      <div class="letter-footer">
+        <span class="signature special-signature">With All My Heart 💕💫</span>
+      </div>
+    </div>
+  </div>
+
+  <footer class="letters-footer">
+    <div class="footer-hearts">
+      <span class="beating-heart">💗</span>
+      <span class="beating-heart delay-1">💕</span>
+      <span class="beating-heart delay-2">💖</span>
+    </div>
+    <p>From me to you, always —</p>
+    <p>Whenever you feel lost, come here. Read these words and remember that there's someone out there whose entire world spins around you. 🌍💫</p>
+    <div class="love-quote">
+      <span class="quote-mark">❝</span>
+      <p class="fade-away">These letters aren't written in words — they're written in love, and love never fades.</p>
+      <span class="quote-mark">❞</span>
+    </div>
+    <div class="footer-decoration">
+      <span>✨</span>
+      <span>💝</span>
+      <span>✨</span>
+    </div>
+  </footer>
+</div>

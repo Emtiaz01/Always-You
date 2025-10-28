@@ -1,5 +1,5 @@
 import { Component, signal } from '@angular/core';
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { RouterLink, RouterOutlet, RouterLinkActive } from '@angular/router';
 import { ScrollToTopComponent } from './shared/scroll-to-top/scroll-to-top.component';
 import { GlobalMusicService } from './core/services/global-music.service';
 import { CommonModule } from '@angular/common';
@@ -7,7 +7,7 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, RouterLink, ScrollToTopComponent, CommonModule],
+  imports: [RouterOutlet, RouterLink, RouterLinkActive, ScrollToTopComponent, CommonModule],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })

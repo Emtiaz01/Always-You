@@ -5,8 +5,8 @@ import { CommonModule } from '@angular/common';
   selector: 'app-letters',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './letters.component.html',
-  styleUrls: ['./letters.component.css'],
+  templateUrl: './letters-new.component.html',
+  styleUrls: ['./letters-new.component.css'],
 })
 export class LettersComponent {
   // Add or edit your love letters here
@@ -23,18 +23,42 @@ export class LettersComponent {
       title: 'When I Think About Us',
       content: `Sometimes, I just sit back and replay our story — the laughs, the chaos, the comfort, the love. And every single time, I end up smiling like an idiot, because wow... we really found each other. You’re my peace after a long day, my laughter when life feels dull, and my calm when everything gets loud. Being with you doesn’t feel like a chapter — it feels like the whole book. I don’t know where life will take us next, but I do know one thing — Wherever you are, that’s where I want to be. 💫`
     },
+  ]);
+
+  // Anniversary and milestone letters
+  anniversaryLetters = signal([
     {
-      title: 'A Promise',
-      content: `I promise to never let a day go by without reminding you how loved you are. I promise to listen — even when it’s hard. I promise to be your biggest fan, your calm in chaos, your laughter in dull moments, and your shoulder when life feels heavy. I promise to never let you feel alone in this world — because from the moment you came into my life, you became home. Always. Only. You. ❤️`
+      title: 'Happy Birthday, My Favorite Person',
+      content: `It's crazy how time has passed, and yet… every day still feels like the first. You still give me butterflies, still make me smile for no reason, and still make my world softer just by being in it. I fall in love with you a little more every single day — not because of what you do, but because of who you are. Here's to every moment we've shared, and to all the tomorrows we'll build together. I love you endlessly — more than I can ever write, more than this page can ever hold. 💞`
+    },
+    {
+      title: 'The Little Things',
+      content: `It’s the little things — the way you laugh before you finish a joke, the random texts that make my day, the way you remember tiny details no one else would. You make love feel simple. Effortless. Real. And every time I think about it, I realize something — I don’t just love you for who you are, I love the way you *make life feel lighter.* ☀️💗`
+    },
+    {
+      title: 'If Words Could Hold You',
+      content: `If words could hold you, I’d wrap you up in all the things I never say out loud. The “I miss you” that catches in my throat. The “I love you” that feels too small for what I mean. The quiet admiration I feel when I watch you just… exist. You deserve poems, symphonies, galaxies — but all I have are words. And still, I hope somehow they reach you, wherever you are. ✍🏻💫`
     }
   ]);
 
-  anniversaryLetter = {
-    title: 'Happy Anniversary, My Forever Person',
-    content: `It’s crazy how time has passed, and yet… every day still feels like the first. You still give me butterflies, still make me smile for no reason, and still make my world softer just by being in it. I fall in love with you a little more every single day — not because of what you do, but because of who you are. Here’s to every moment we’ve shared, and to all the tomorrows we’ll build together. I love you endlessly — more than I can ever write, more than this page can ever hold. 💞`
-  };
-  
-  showAnniversaryLetter = true; // Set to false to hide anniversary letter
+  // Special letters - Extra romantic and meaningful letters
+  specialLetters = signal([
+    {
+      title: 'I See You',
+      content: `I see you — not just your smile, but the way it hides your worries. Not just your strength, but the effort it takes to stay strong. You show up for everyone else, but I want you to know… I see *you.* The tired eyes, the hopeful heart, the way you keep choosing love even when it’s hard. And I need you to remember — that’s what makes you extraordinary. 🌹`
+    },
+    {
+      title: 'If You Ever Doubt My Love',
+      content: `On the nights when the world feels distant, when your heart questions its worth, I want you to remember this — my love for you doesn’t waver. It doesn’t depend on good days or bad moods. It just *is.* Steady, patient, endless. You could go silent for days, and I’d still be here — holding space for you in every thought, every breath, every heartbeat. You are my constant. Always have been, always will be. 💞`
+    },
+    {
+      title: 'When I Miss You Quietly',
+      content: `I don’t always say it out loud, but some nights, I miss you in the quietest ways. In the empty spaces between songs, in the stillness before sleep. It’s like your presence lingers in the air — soft, invisible, but undeniably there. Missing you isn’t loud; it’s a whisper that lives inside me, reminding me that my favorite part of the world exists somewhere beyond my reach. And somehow… that’s both comforting and cruel. 🌒`
+    }
+  ]);
 
-  constructor() {}
+
+  showAnniversaryLetter = true;
+
+  constructor() { }
 }
