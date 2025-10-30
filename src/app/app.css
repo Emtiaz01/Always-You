@@ -199,41 +199,59 @@
   .romantic-nav {
     width: 100%;
     height: auto;
-    position: relative;
+    position: fixed;
+    top: 0;
     left: 0;
-    padding: 0.75rem 1rem;
-    box-shadow: 0 2px 10px rgba(209, 96, 129, 0.2);
+    padding: 0.75rem 0.5rem;
+    box-shadow: 0 4px 20px rgba(209, 96, 129, 0.3);
+    background: rgba(255, 245, 247, 0.98);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
   }
   
   .nav-container {
     flex-direction: row;
-    justify-content: center;
-    gap: 0.5rem;
+    justify-content: space-evenly;
+    gap: 0.25rem;
+    max-width: 100%;
   }
   
   .nav-item {
-    padding: 0.6rem 1rem;
-    font-size: 0.9rem;
-    border-radius: 50px;
+    flex-direction: column;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.75rem;
+    border-radius: 15px;
+    gap: 0.25rem;
+    min-width: 70px;
+    flex: 1;
+    max-width: 100px;
   }
   
   .nav-label {
-    font-size: 0.85rem;
+    font-size: 0.7rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
   }
   
   .nav-icon {
-    font-size: 1.2rem;
+    font-size: 1.5rem;
   }
   
   .nav-heart {
     display: none;
   }
+
+  .logout-btn {
+    margin-left: 0;
+  }
 }
 
 /* Global Music Control Wrapper */
 .global-music-wrapper {
-  position: fixed;
-  top: 20px;
+  position: absolute;
+  top: 30px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 999;
@@ -451,48 +469,62 @@
   text-align: center;
 }
 
-/* Mobile Responsive */
+/* Mobile Responsive - Music Controls */
 @media (max-width: 768px) {
   .global-music-wrapper {
-    top: 10px;
-    right: 10px;
+    top: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 20px);
+    max-width: 400px;
   }
   
   .music-controls {
-    padding: 3px;
-    gap: 6px;
+    padding: 8px;
+    gap: 8px;
+    width: 100%;
+    justify-content: space-between;
   }
   
   .global-music-control {
-    padding: 10px 16px;
+    padding: 12px 20px;
     font-size: 12px;
+    flex: 1;
   }
   
   .music-icon {
-    font-size: 18px;
+    font-size: 20px;
   }
   
   .music-text {
-    display: none;
+    display: block;
+    font-size: 11px;
   }
   
   .control-btn {
-    width: 35px;
-    height: 35px;
-    font-size: 14px;
+    width: 45px;
+    height: 45px;
+    font-size: 16px;
   }
   
   .volume-toggle {
-    width: 38px;
-    height: 38px;
-    font-size: 16px;
+    width: 45px;
+    height: 45px;
+    font-size: 18px;
   }
   
   .volume-slider-wrapper {
     padding: 12px 16px;
+    width: calc(100% - 40px);
+    max-width: 350px;
   }
   
   .volume-slider {
-    width: 100px;
+    width: 100%;
+    flex: 1;
+  }
+
+  .volume-label {
+    min-width: 45px;
   }
 }

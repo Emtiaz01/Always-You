@@ -1,7 +1,168 @@
-<div class="playlist-container">
-  <h2>Songs That Tell Our Story 🎶</h2>
-  <div *ngIf="playlistUrl()">
-    <iframe [src]="playlistUrl()" width="100%" height="380" frameBorder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+<div class="music-page" [class.listening-mode]="isListeningMode()">
+  <!-- Floating Music Notes -->
+  <div class="floating-notes">
+    <span class="note" style="left: 10%; animation-delay: 0s;">🎵</span>
+    <span class="note" style="left: 25%; animation-delay: 2s;">🎶</span>
+    <span class="note" style="left: 40%; animation-delay: 1s;">🎵</span>
+    <span class="note" style="left: 55%; animation-delay: 3s;">🎶</span>
+    <span class="note" style="left: 70%; animation-delay: 1.5s;">🎵</span>
+    <span class="note" style="left: 85%; animation-delay: 2.5s;">🎶</span>
   </div>
-  <p *ngIf="!playlistUrl()">No playlist has been set up yet.</p>
+
+  <!-- Section 1: Hero Header -->
+  <section class="hero-header">
+    <div class="hero-overlay"></div>
+    <div class="waveform-animation"></div>
+    <div class="light-particles"></div>
+    
+    <div class="hero-content">
+      <div class="mic-icon">🎤</div>
+      <h1 class="hero-title">Songs for You</h1>
+      <p class="hero-subtitle">
+        Every song here is a piece of me —<br>
+        something I sang thinking only of you. 💖
+      </p>
+      <p class="hero-cta">Press play. Feel my heart.</p>
+      
+      <!-- Listening Mode Toggle -->
+      <button class="listening-mode-btn" (click)="toggleListeningMode()">
+        <span *ngIf="!isListeningMode()">🎧 Enter Listening Mode</span>
+        <span *ngIf="isListeningMode()">✨ Exit Listening Mode</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- Section 2: Song Cards Grid -->
+  <section class="songs-section">
+    <div class="section-header">
+      <h2 class="section-title">💕 My Musical Love Diary</h2>
+      <p class="section-subtitle">Every track tells a story of us</p>
+    </div>
+
+    <div class="songs-grid">
+      <div *ngFor="let song of songs()" class="song-card" [class.playing]="currentlyPlaying() === song.id">
+        <div class="card-cover" [style.background-image]="'url(' + song.coverImage + ')'">
+          <div class="cover-overlay"></div>
+          <!-- <div class="cover-icon">🎵</div> -->
+          <button class="play-btn" (click)="togglePlay(song.id)">
+            <span *ngIf="currentlyPlaying() !== song.id">🎧</span>
+            <span *ngIf="currentlyPlaying() === song.id">🛑</span>
+          </button>
+        </div>
+        <div class="card-content">
+          <h3 class="song-title">{{ song.title }}</h3>
+          <p class="song-subtitle">{{ song.subtitle }}</p>
+          <p class="song-message">{{ song.message }}</p>
+          
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 3: The Meaning Behind Each Song -->
+  <section class="meanings-section">
+    <div class="section-header">
+      <h2 class="section-title">💖 The Story Behind The Songs</h2>
+      <div class="music-note-deco">♪ ♫ ♪</div>
+    </div>
+
+    <div class="meanings-list">
+      <div class="meaning-item">
+        <div class="meaning-icon">🌙</div>
+        <h3>"Moonlight Confession"</h3>
+        <p>I recorded most of these at 2AM when I could not sleep without hearing your voice. Every lyric is what I never said out loud, but always felt.</p>
+      </div>
+
+      <div class="meaning-item">
+        <div class="meaning-icon">💫</div>
+        <h3>"Forever Mine"</h3>
+        <p>These melodies came to me while thinking about our future together. Every chord represents a moment I want to share with you.</p>
+      </div>
+
+      <div class="meaning-item">
+        <div class="meaning-icon">✨</div>
+        <h3>"Your Smile"</h3>
+        <p>The day I saw you smile for the first time, I knew I had to capture that feeling. These songs are that moment, frozen in time.</p>
+      </div>
+
+      <div class="meaning-item">
+        <div class="meaning-icon">💝</div>
+        <h3>"Always You"</h3>
+        <p>No matter where life takes us, no matter what happens, these songs are my promise — it will always be you.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 4: Featured Song Highlight -->
+  <section class="featured-section">
+    <div class="featured-background"></div>
+    <div class="heartbeat-animation"></div>
+    
+    <div class="featured-content">
+      <div class="featured-icon">❤️</div>
+      <h2 class="featured-title">{{ featuredSong().title }}</h2>
+      <p class="featured-description">{{ featuredSong().description }}</p>
+      
+      <button class="featured-play-btn" (click)="toggleFeaturedPlay()" [class.playing]="featuredPlaying()">
+        <span class="btn-icon" *ngIf="!featuredPlaying()">🎧</span>
+        <span class="btn-icon" *ngIf="featuredPlaying()">🛑</span>
+        <span class="btn-text">{{ featuredPlaying() ? 'Pause' : 'Play Now' }}</span>
+      </button>
+
+      <div class="featured-player" *ngIf="featuredPlaying()">
+        <div class="player-visualizer">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Section 6: Secret Song (Hidden Bonus) -->
+  <section class="secret-section">
+    <div class="secret-trigger" *ngIf="!showSecretSong()" (click)="revealSecretSong()">
+      <div class="secret-heart">
+        <span class="heart-icon">💖</span>
+        <span class="question-mark">?</span>
+      </div>
+      <p class="secret-hint">Click to reveal a secret...</p>
+    </div>
+
+    <div class="secret-revealed" *ngIf="showSecretSong()">
+      <div class="secret-stars">✨ ⭐ ✨</div>
+      <h3 class="secret-title">{{ secretSong().title }}</h3>
+      <p class="secret-message">{{ secretSong().message }}</p>
+      
+      <button class="secret-play-btn" (click)="toggleSecretPlay()" [class.playing]="secretPlaying()">
+        <span *ngIf="!secretPlaying()">🎧 Play Secret Song</span>
+        <span *ngIf="secretPlaying()">🛑 Pause</span>
+      </button>
+
+      <div class="secret-lyrics" *ngIf="secretPlaying() && secretSong().lyrics">
+        <div *ngFor="let lyric of secretSong().lyrics" class="secret-lyric">
+          {{ lyric }}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 7: Outro -->
+  <section class="outro-section">
+    <div class="rising-hearts">
+      <span class="rising-heart" style="left: 20%; animation-delay: 0s;">💖</span>
+      <span class="rising-heart" style="left: 40%; animation-delay: 1s;">💕</span>
+      <span class="rising-heart" style="left: 60%; animation-delay: 0.5s;">💗</span>
+      <span class="rising-heart" style="left: 80%; animation-delay: 1.5s;">💝</span>
+    </div>
+    
+    <div class="outro-content">
+      <p class="outro-text">
+        Every lyric, every chord, every word…<br>
+        It all comes back to you.
+      </p>
+      <div class="outro-icon">🎵💫</div>
+    </div>
+  </section>
 </div>

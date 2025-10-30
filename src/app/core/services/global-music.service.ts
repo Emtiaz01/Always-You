@@ -8,6 +8,8 @@ export class GlobalMusicService {
   
   // Background music playlist
   private playlist = [
+    'assets/audio/Suroor_Lofi.mp3',
+    'assets/audio/Dil_Me_Ho_Tum_Lofi.mp3',
     'assets/audio/Ishq_Sufiana_Lofi.mp3',
     'assets/audio/Tum_Se_Hi_Lofi.mp3',
     'assets/audio/Samjhawa_Lofi.mp3'

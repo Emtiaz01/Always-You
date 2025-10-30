@@ -1,5 +1,6 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable, signal, inject } from '@angular/core';
 import { Router } from '@angular/router';
+import { GlobalMusicService } from './global-music.service';
 
 export interface User {
   id: string;
@@ -15,6 +16,7 @@ export class AuthService {
   private currentUser = signal<User | null>(null);
   private readonly USERS_KEY = 'romantic_users';
   private readonly CURRENT_USER_KEY = 'current_user';
+  private musicService = inject(GlobalMusicService);
 
   constructor(private router: Router) {
     this.loadCurrentUser();
@@ -83,6 +85,7 @@ export class AuthService {
 
   // Logout user
   logout(): void {
+    this.musicService.pause(); // Stop music on logout
     this.currentUser.set(null);
     localStorage.removeItem(this.CURRENT_USER_KEY);
     this.router.navigate(['/login']);

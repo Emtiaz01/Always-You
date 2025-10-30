@@ -1,4 +1,999 @@
-.playlist-container {
-  padding: 2rem;
+/* Music Page Container */
+.music-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #fff5f7 0%, #ffe4ec 50%, #ffd6e0 100%);
+  position: relative;
+  overflow-x: hidden;
+  transition: all 0.5s ease;
+}
+
+/* Listening Mode (Dark Theme) */
+.music-page.listening-mode {
+  background: linear-gradient(135deg, #1a0a1e 0%, #2d1340 50%, #1a0a1e 100%);
+}
+
+.music-page.listening-mode .hero-title,
+.music-page.listening-mode .section-title,
+.music-page.listening-mode .song-title,
+.music-page.listening-mode .meaning-item h3 {
+  color: #ff85c1;
+  text-shadow: 0 0 20px rgba(255, 133, 193, 0.6);
+}
+
+.music-page.listening-mode .hero-subtitle,
+.music-page.listening-mode .section-subtitle,
+.music-page.listening-mode p {
+  color: #ffb3d9;
+}
+
+/* Floating Music Notes */
+.floating-notes {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.note {
+  position: absolute;
+  bottom: -50px;
+  font-size: 2rem;
+  opacity: 0.4;
+  animation: floatNote 12s infinite ease-in;
+}
+
+@keyframes floatNote {
+  0% {
+    bottom: -50px;
+    opacity: 0;
+    transform: translateX(0) rotate(0deg);
+  }
+  10% {
+    opacity: 0.4;
+  }
+  90% {
+    opacity: 0.2;
+  }
+  100% {
+    bottom: 110%;
+    opacity: 0;
+    transform: translateX(50px) rotate(360deg);
+  }
+}
+
+/* Section 1: Hero Header */
+.hero-header {
+  position: relative;
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><defs><linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:%23ffb3d9;stop-opacity:0.3"/><stop offset="100%" style="stop-color:%23d16081;stop-opacity:0.1"/></linearGradient></defs><rect fill="url(%23grad)" width="1200" height="600"/></svg>') center/cover;
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at center, rgba(255, 179, 217, 0.1), rgba(209, 96, 129, 0.2));
+  z-index: 1;
+}
+
+.waveform-animation {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100px;
+  background: repeating-linear-gradient(
+    90deg,
+    #ffb3d9 0px,
+    #ffb3d9 2px,
+    transparent 2px,
+    transparent 8px
+  );
+  opacity: 0.3;
+  animation: waveMove 3s linear infinite;
+  z-index: 2;
+}
+
+@keyframes waveMove {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(8px);
+  }
+}
+
+.light-particles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 1px, transparent 1px);
+  background-size: 50px 50px;
+  animation: particleFloat 20s linear infinite;
+  z-index: 2;
+}
+
+@keyframes particleFloat {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 50px 50px;
+  }
+}
+
+.hero-content {
+  position: relative;
+  z-index: 3;
   text-align: center;
+  padding: 2rem;
+  max-width: 800px;
+}
+
+.mic-icon {
+  font-size: 5rem;
+  animation: micPulse 2s ease-in-out infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes micPulse {
+  0%, 100% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 10px rgba(255, 179, 217, 0.5));
+  }
+  50% {
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 20px rgba(255, 179, 217, 0.8));
+  }
+}
+
+.hero-title {
+  font-family: 'Dancing Script', cursive;
+  font-size: 4rem;
+  color: #d16081;
+  margin-bottom: 1.5rem;
+  text-shadow: 2px 2px 4px rgba(209, 96, 129, 0.3);
+  animation: titleGlow 3s ease-in-out infinite;
+}
+
+@keyframes titleGlow {
+  0%, 100% {
+    text-shadow: 2px 2px 4px rgba(209, 96, 129, 0.3);
+  }
+  50% {
+    text-shadow: 0 0 20px rgba(255, 179, 217, 0.6), 2px 2px 4px rgba(209, 96, 129, 0.5);
+  }
+}
+
+.hero-subtitle {
+  font-size: 1.4rem;
+  color: #ff85c1;
+  line-height: 1.8;
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+}
+
+.hero-cta {
+  font-size: 1.2rem;
+  color: #d16081;
+  font-weight: 700;
+  font-style: italic;
+  margin-bottom: 2rem;
+}
+
+.listening-mode-btn {
+  background: linear-gradient(135deg, #ff85c1, #d16081);
+  color: white;
+  border: none;
+  padding: 1rem 2.5rem;
+  border-radius: 50px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 10px 30px rgba(209, 96, 129, 0.4);
+  transition: all 0.3s ease;
+  font-family: 'Poppins', sans-serif;
+}
+
+.listening-mode-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 40px rgba(209, 96, 129, 0.6);
+}
+
+.music-page.listening-mode .listening-mode-btn {
+  background: linear-gradient(135deg, #ff1493, #ff69b4);
+  box-shadow: 0 0 30px rgba(255, 105, 180, 0.8);
+}
+
+/* Section 2: Songs Grid */
+.songs-section {
+  padding: 5rem 2rem;
+  position: relative;
+  z-index: 2;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.section-title {
+  font-family: 'Dancing Script', cursive;
+  font-size: 3rem;
+  color: #d16081;
+  margin-bottom: 1rem;
+}
+
+.section-subtitle {
+  font-size: 1.2rem;
+  color: #ff85c1;
+  font-weight: 500;
+}
+
+.songs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2.5rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.song-card {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(209, 96, 129, 0.2);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative;
+}
+
+.song-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 50px rgba(209, 96, 129, 0.4);
+}
+
+.song-card.playing {
+  box-shadow: 0 0 40px rgba(255, 105, 180, 0.6);
+  animation: cardPulse 2s ease-in-out infinite;
+}
+
+@keyframes cardPulse {
+  0%, 100% {
+    box-shadow: 0 0 40px rgba(255, 105, 180, 0.6);
+  }
+  50% {
+    box-shadow: 0 0 60px rgba(255, 105, 180, 0.9);
+  }
+}
+
+.card-cover {
+  position: relative;
+  height: 250px;
+  background: linear-gradient(135deg, #ffb3d9, #ff85c1);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.cover-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.song-card:hover .cover-overlay {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.cover-icon {
+  position: relative;
+  z-index: 2;
+  font-size: 4rem;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+  transition: all 0.3s ease;
+  color: white;
+  opacity: 0.8;
+}
+
+.song-card:hover .cover-icon {
+  transform: scale(1.2) rotate(10deg);
+  opacity: 1;
+}
+
+.play-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: transparent;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  opacity: 0;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  z-index: 10;
+}
+
+.song-card:hover .play-btn {
+  opacity: 1;
+}
+
+.play-btn:hover {
+  transform: translate(-50%, -50%) scale(1.1);
+  background: transparent;
+}
+
+.song-card.playing .play-btn {
+  opacity: 1;
+  animation: playBtnPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes playBtnPulse {
+  0%, 100% {
+    box-shadow: 0 8px 20px rgba(255, 105, 180, 0.5);
+  }
+  50% {
+    box-shadow: 0 8px 30px rgba(255, 105, 180, 0.8);
+  }
+}
+
+.card-content {
+  padding: 2rem;
+  position: relative;
+}
+
+.song-title {
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.8rem;
+  color: #d16081;
+  margin-bottom: 0.5rem;
+}
+
+.song-subtitle {
+  font-size: 0.95rem;
+  color: #ff85c1;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.song-message {
+  font-size: 1rem;
+  color: #666;
+  line-height: 1.6;
+  font-style: italic;
+}
+
+/* Floating Lyrics */
+.floating-lyrics {
+  position: absolute;
+  top: -80px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  pointer-events: none;
+  z-index: 20;
+}
+
+.lyric-line {
+  background: rgba(255, 179, 217, 0.95);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 15px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  box-shadow: 0 4px 15px rgba(209, 96, 129, 0.4);
+  animation: lyricFloat 3s ease-in-out infinite;
+  white-space: nowrap;
+}
+
+.lyric-line:nth-child(2) {
+  animation-delay: 0.5s;
+}
+
+.lyric-line:nth-child(3) {
+  animation-delay: 1s;
+}
+
+@keyframes lyricFloat {
+  0%, 100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(-10px);
+    opacity: 0.8;
+  }
+}
+
+/* Section 3: Meanings */
+.meanings-section {
+  padding: 5rem 2rem;
+  background: rgba(255, 255, 255, 0.5);
+  position: relative;
+  z-index: 2;
+}
+
+.music-note-deco {
+  font-size: 2rem;
+  color: #ffb3d9;
+  margin-top: 0.5rem;
+  animation: noteSwing 2s ease-in-out infinite;
+}
+
+@keyframes noteSwing {
+  0%, 100% {
+    transform: rotate(-10deg);
+  }
+  50% {
+    transform: rotate(10deg);
+  }
+}
+
+.meanings-list {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.meaning-item {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 2.5rem;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(209, 96, 129, 0.2);
+  transition: all 0.3s ease;
+  position: relative;
+  padding-left: 5rem;
+}
+
+.meaning-item:hover {
+  transform: translateX(10px);
+  box-shadow: 0 15px 40px rgba(209, 96, 129, 0.3);
+}
+
+.meaning-icon {
+  position: absolute;
+  left: 2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 3rem;
+  animation: iconFloat 3s ease-in-out infinite;
+}
+
+@keyframes iconFloat {
+  0%, 100% {
+    transform: translateY(-50%);
+  }
+  50% {
+    transform: translateY(calc(-50% - 10px));
+  }
+}
+
+.meaning-item h3 {
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.8rem;
+  color: #d16081;
+  margin-bottom: 1rem;
+}
+
+.meaning-item p {
+  font-size: 1.1rem;
+  color: #666;
+  line-height: 1.8;
+}
+
+/* Section 4: Featured Song */
+.featured-section {
+  padding: 6rem 2rem;
+  position: relative;
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.featured-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(255, 179, 217, 0.3), rgba(209, 96, 129, 0.3));
+  z-index: 1;
+}
+
+.heartbeat-animation {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(255, 105, 180, 0.3) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: heartbeat 2s ease-in-out infinite;
+  z-index: 1;
+}
+
+@keyframes heartbeat {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.2);
+    opacity: 0.8;
+  }
+}
+
+.featured-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 4rem 3rem;
+  border-radius: 30px;
+  max-width: 700px;
+  box-shadow: 0 20px 60px rgba(209, 96, 129, 0.4);
+}
+
+.featured-icon {
+  font-size: 4rem;
+  margin-bottom: 1.5rem;
+  animation: featuredIconBeat 1.5s ease-in-out infinite;
+}
+
+@keyframes featuredIconBeat {
+  0%, 100% {
+    transform: scale(1);
+  }
+  25% {
+    transform: scale(1.2);
+  }
+  50% {
+    transform: scale(1);
+  }
+}
+
+.featured-title {
+  font-family: 'Dancing Script', cursive;
+  font-size: 3rem;
+  color: #d16081;
+  margin-bottom: 1.5rem;
+}
+
+.featured-description {
+  font-size: 1.3rem;
+  color: #666;
+  line-height: 1.8;
+  margin-bottom: 2.5rem;
+  font-style: italic;
+}
+
+.featured-play-btn {
+  background: linear-gradient(135deg, #ff85c1, #d16081);
+  color: white;
+  border: none;
+  padding: 1.25rem 3rem;
+  border-radius: 50px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 10px 30px rgba(209, 96, 129, 0.4);
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  font-family: 'Poppins', sans-serif;
+}
+
+.featured-play-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 40px rgba(209, 96, 129, 0.6);
+}
+
+.featured-play-btn.playing {
+  animation: btnPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes btnPulse {
+  0%, 100% {
+    box-shadow: 0 10px 30px rgba(209, 96, 129, 0.4);
+  }
+  50% {
+    box-shadow: 0 10px 50px rgba(209, 96, 129, 0.8);
+  }
+}
+
+.featured-player {
+  margin-top: 2rem;
+}
+
+.player-visualizer {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 5px;
+  height: 60px;
+}
+
+.bar {
+  width: 8px;
+  background: linear-gradient(to top, #d16081, #ff85c1);
+  border-radius: 4px;
+  animation: barBounce 0.8s ease-in-out infinite;
+}
+
+.bar:nth-child(2) {
+  animation-delay: 0.1s;
+}
+
+.bar:nth-child(3) {
+  animation-delay: 0.2s;
+}
+
+.bar:nth-child(4) {
+  animation-delay: 0.3s;
+}
+
+.bar:nth-child(5) {
+  animation-delay: 0.4s;
+}
+
+@keyframes barBounce {
+  0%, 100% {
+    height: 20px;
+  }
+  50% {
+    height: 60px;
+  }
+}
+
+/* Section 5: Playlist Embed */
+.playlist-embed-section {
+  padding: 5rem 2rem;
+  background: rgba(255, 255, 255, 0.5);
+  position: relative;
+  z-index: 2;
+}
+
+.playlist-container {
+  max-width: 800px;
+  margin: 0 auto;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 3rem;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(209, 96, 129, 0.2);
+}
+
+.playlist-note {
+  text-align: center;
+  color: #666;
+}
+
+.note-small {
+  font-size: 0.9rem;
+  color: #999;
+  margin-top: 1rem;
+}
+
+/* Section 6: Secret Song */
+.secret-section {
+  padding: 5rem 2rem;
+  position: relative;
+  z-index: 2;
+  min-height: 50vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.secret-trigger {
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.secret-trigger:hover {
+  transform: scale(1.1);
+}
+
+.secret-heart {
+  position: relative;
+  display: inline-block;
+  font-size: 6rem;
+  animation: secretPulse 2s ease-in-out infinite;
+}
+
+@keyframes secretPulse {
+  0%, 100% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 20px rgba(255, 105, 180, 0.5));
+  }
+  50% {
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 40px rgba(255, 105, 180, 0.8));
+  }
+}
+
+.question-mark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 3rem;
+  color: white;
+  font-weight: bold;
+}
+
+.secret-hint {
+  font-size: 1.2rem;
+  color: #ff85c1;
+  margin-top: 1rem;
+  font-weight: 600;
+}
+
+.secret-revealed {
+  text-align: center;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 4rem 3rem;
+  border-radius: 30px;
+  max-width: 600px;
+  box-shadow: 0 20px 60px rgba(209, 96, 129, 0.4);
+  animation: revealPop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes revealPop {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.secret-stars {
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+  animation: starsTwinkle 2s ease-in-out infinite;
+}
+
+@keyframes starsTwinkle {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.secret-title {
+  font-family: 'Dancing Script', cursive;
+  font-size: 2.5rem;
+  color: #d16081;
+  margin-bottom: 1rem;
+}
+
+.secret-message {
+  font-size: 1.2rem;
+  color: #666;
+  margin-bottom: 2rem;
+  line-height: 1.8;
+}
+
+.secret-play-btn {
+  background: linear-gradient(135deg, #ff85c1, #d16081);
+  color: white;
+  border: none;
+  padding: 1rem 2.5rem;
+  border-radius: 50px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 10px 30px rgba(209, 96, 129, 0.4);
+  transition: all 0.3s ease;
+  font-family: 'Poppins', sans-serif;
+}
+
+.secret-play-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 40px rgba(209, 96, 129, 0.6);
+}
+
+.secret-play-btn.playing {
+  animation: btnPulse 1.5s ease-in-out infinite;
+}
+
+.secret-lyrics {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.secret-lyric {
+  background: rgba(255, 179, 217, 0.2);
+  padding: 1rem 1.5rem;
+  border-radius: 15px;
+  color: #d16081;
+  font-size: 1.1rem;
+  font-weight: 600;
+  animation: lyricFade 2s ease-in-out infinite;
+}
+
+.secret-lyric:nth-child(2) {
+  animation-delay: 0.5s;
+}
+
+.secret-lyric:nth-child(3) {
+  animation-delay: 1s;
+}
+
+@keyframes lyricFade {
+  0%, 100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* Section 7: Outro */
+.outro-section {
+  padding: 8rem 2rem;
+  position: relative;
+  text-align: center;
+  overflow: hidden;
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rising-hearts {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.rising-heart {
+  position: absolute;
+  bottom: -50px;
+  font-size: 2.5rem;
+  animation: heartRise 8s infinite ease-in;
+}
+
+@keyframes heartRise {
+  0% {
+    bottom: -50px;
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 0.5;
+  }
+  100% {
+    bottom: 110%;
+    opacity: 0;
+  }
+}
+
+.outro-content {
+  position: relative;
+  z-index: 2;
+}
+
+.outro-text {
+  font-family: 'Dancing Script', cursive;
+  font-size: 2.5rem;
+  color: #d16081;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  animation: fadeIn 3s ease-in;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.outro-icon {
+  font-size: 3rem;
+  animation: iconSpin 4s ease-in-out infinite;
+}
+
+@keyframes iconSpin {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(15deg);
+  }
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 2.5rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1.1rem;
+  }
+
+  .section-title {
+    font-size: 2rem;
+  }
+
+  .songs-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .meaning-item {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+
+  .meaning-icon {
+    position: static;
+    transform: none;
+    margin-bottom: 1rem;
+  }
+
+  .featured-content {
+    padding: 2.5rem 1.5rem;
+  }
+
+  .featured-title {
+    font-size: 2rem;
+  }
+
+  .outro-text {
+    font-size: 1.8rem;
+  }
 }
