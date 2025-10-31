@@ -309,6 +309,10 @@
   position: relative;
 }
 
+.password-wrapper .form-input {
+  padding-right: 16.6rem;
+}
+
 .toggle-password {
   position: absolute;
   right: 1rem;

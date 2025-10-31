@@ -18,9 +18,6 @@ interface Photo {
 export class HomeComponent implements OnInit, AfterViewInit {
   @ViewChild('aboutSection') aboutSectionRef!: ElementRef<HTMLElement>;
 
-  greeting = signal('');
-  showChatBubble = signal(false);
-
   previewPhotos = signal<Photo[]>([
     { url: 'assets/images/timeline/event5.jpg', name: 'Photo 1', caption: 'Beautiful moment' },
     { url: 'assets/images/gallery/gallery2.jpg', name: 'Photo 2', caption: 'Sweet memory' },
@@ -37,30 +34,11 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   constructor() {}
 
-  async ngOnInit() {
-    this.setGreeting();
-    setTimeout(() => {
-      this.showChatBubble.set(true);
-      setTimeout(() => {
-        this.showChatBubble.set(false);
-      }, 8000);
-    }, 3000);
-  }
+  ngOnInit(): void {}
 
   ngAfterViewInit() {
     this.initCursorTrail();
     this.initScrollAnimations();
-  }
-
-  setGreeting() {
-    const hour = new Date().getHours();
-    if (hour < 12) {
-      this.greeting.set('Good Morning');
-    } else if (hour < 18) {
-      this.greeting.set('Good Afternoon');
-    } else {
-      this.greeting.set('Good Evening');
-    }
   }
 
   scrollToNextSection() {
@@ -75,10 +53,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   onPhotoLeave() {
-  }
-
-  closeChatBubble() {
-    this.showChatBubble.set(false);
   }
 
   private initCursorTrail() {

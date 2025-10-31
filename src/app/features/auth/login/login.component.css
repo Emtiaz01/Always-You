@@ -286,6 +286,10 @@
   position: relative;
 }
 
+.password-wrapper .form-input {
+  padding-right: 13.6rem;
+}
+
 .toggle-password {
   position: absolute;
   right: 1rem;
@@ -296,6 +300,7 @@
   font-size: 1.5rem;
   cursor: pointer;
   transition: transform 0.3s ease;
+  z-index: 10;
 }
 
 .toggle-password:hover {
