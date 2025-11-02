@@ -136,7 +136,7 @@ export class PlaylistComponent implements OnDestroy {
     title: 'Secret Message',
     subtitle: 'Just For You',
     message: 'You found the secret song 💖 — this one is just for you.',
-    audioUrl: 'assets/audio/recorded/Sang_hu_Tere_Emon.mp3',
+    audioUrl: 'assets/audio/recorded/Ha_Tu_Hei_Emon.mp3',
     coverImage: 'assets/images/secret-cover.jpg',
     lyrics: ['This secret song', 'Is my heart speaking', 'Directly to yours']
   });

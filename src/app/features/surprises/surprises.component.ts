@@ -64,20 +64,21 @@ export class SurprisesComponent {
     }, 3000);
   }
 
-  startVideo() {
-    // Keep intro visible, just hide the button
-    this.showHeartButton.set(false);
-    this.showVideo.set(true);
-    this.currentPhase.set(1);
+  // startVideo() {
+  //   // Keep intro visible, just hide the button
+  //   this.showHeartButton.set(false);
+  //   this.showVideo.set(true);
+  //   this.currentPhase.set(1);
     
-    // Show "next" button after video (simulating video end after 5 seconds)
-    setTimeout(() => {
-      this.showVideoNext.set(true);
-    }, 5000);
-  }
+  //   // Show "next" button after video (simulating video end after 5 seconds)
+  //   setTimeout(() => {
+  //     this.showVideoNext.set(true);
+  //   }, 5000);
+  // }
 
   goToJar() {
     // Keep video visible, just hide the next button
+    this.showHeartButton.set(false);
     this.showVideoNext.set(false);
     this.showJar.set(true);
     this.currentPhase.set(2);
@@ -102,12 +103,12 @@ export class SurprisesComponent {
   openSecretGift() {
     // Keep jar and notes visible
     this.showSecretGift.set(false);
-    this.showCollage.set(true);
+    // this.showCollage.set(true);
     this.currentPhase.set(3);
     
     // Show next button after collage (after 8 seconds)
     setTimeout(() => {
-      this.showCollageNext.set(true);
+      this.showFinale.set(true);
     }, 8000);
   }
 

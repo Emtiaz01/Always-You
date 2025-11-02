@@ -134,17 +134,12 @@
       <div class="secret-stars">✨ ⭐ ✨</div>
       <h3 class="secret-title">{{ secretSong().title }}</h3>
       <p class="secret-message">{{ secretSong().message }}</p>
+      <p class="secret-message">Song will be available Soon!</p>
       
-      <button class="secret-play-btn" (click)="toggleSecretPlay()" [class.playing]="secretPlaying()">
+      <!-- <button class="secret-play-btn" (click)="toggleSecretPlay()" [class.playing]="secretPlaying()">
         <span *ngIf="!secretPlaying()">🎧 Play Secret Song</span>
         <span *ngIf="secretPlaying()">🛑 Pause</span>
-      </button>
-
-      <div class="secret-lyrics" *ngIf="secretPlaying() && secretSong().lyrics">
-        <div *ngFor="let lyric of secretSong().lyrics" class="secret-lyric">
-          {{ lyric }}
-        </div>
-      </div>
+      </button> -->
     </div>
   </section>
 
